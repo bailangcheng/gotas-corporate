@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --brand-blue: #1d4ed8;
+  --brand-blue-dark: #1e3a8a;
+  --brand-slate: #0f172a;
+  --surface-muted: #f8fafc;
+  --border-subtle: #e2e8f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans-jp);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-jp), "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: #bfdbfe;
+  color: #0f172a;
+}
+
