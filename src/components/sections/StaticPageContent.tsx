@@ -180,7 +180,7 @@ function GroupContent({ siblings }: { siblings: SitePage[] }) {
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {groupPages.map((item) => (
             <Link key={item.href} href={item.href} className="group block">
-              <Card className="h-full shadow-none group-hover:border-[var(--color-brand)]">
+              <Card className="h-full shadow-none" interactive>
                 <Badge>{item.eyebrow}</Badge>
                 <h2 className="mt-5 text-2xl font-black">{item.title}</h2>
                 <p className="mt-4 leading-8 text-[var(--color-ink-soft)]">{item.summary}</p>
@@ -201,7 +201,7 @@ function BusinessContent({ siblings }: { siblings: SitePage[] }) {
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {businessItems.map((item) => (
             <Link key={item.href} href={item.href} className="group block">
-              <Card className="h-full shadow-none group-hover:border-[var(--color-brand)]">
+              <Card className="h-full shadow-none" interactive>
                 <Badge>{item.label}</Badge>
                 <h2 className="mt-5 text-xl font-black">{item.title}</h2>
                 <p className="mt-4 text-sm leading-8 text-[var(--color-ink-soft)]">{item.summary}</p>
@@ -225,10 +225,10 @@ function PlaceholderContent({ page, siblings }: { page: SitePage; siblings: Site
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {["目的", "掲載内容", "必要素材", "確認事項"].map((label) => (
-            <div key={label} className="rounded-[var(--radius-sm)] bg-[var(--color-surface)] p-5">
+            <Card key={label} tone="muted" className="rounded-[var(--radius-sm)] p-5 shadow-none">
               <h3 className="font-black text-[var(--color-ink)]">{label}</h3>
               <p className="mt-2 text-sm leading-7 text-[var(--color-ink-soft)]">ワイヤーフレーム確定後に記入します。</p>
-            </div>
+            </Card>
           ))}
         </div>
       </Card>

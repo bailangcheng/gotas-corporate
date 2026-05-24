@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { IconButton } from "@/components/ui/IconButton";
 
 type ButtonLinkProps = {
   href: string;
@@ -7,29 +8,31 @@ type ButtonLinkProps = {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md";
   className?: string;
+  withIcon?: boolean;
 };
 
 const variants = {
   primary:
-    "border-[var(--color-brand)] bg-[var(--color-brand)] text-white hover:border-[var(--color-brand-dark)] hover:bg-[var(--color-brand-dark)]",
+    "border-black bg-[var(--color-green)] text-white shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:bg-[var(--color-brand)]",
   secondary:
-    "border-[var(--color-line-strong)] bg-white text-[var(--color-ink)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]",
+    "border-black bg-white text-[var(--color-ink)] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:text-[var(--color-brand)]",
   ghost:
-    "border-transparent bg-transparent text-[var(--color-brand)] hover:border-[var(--color-brand-soft)] hover:bg-[var(--color-surface-blue)]",
+    "border-transparent bg-transparent text-[var(--color-brand)] hover:bg-[var(--color-brand-soft)]",
 };
 
 const sizes = {
-  sm: "min-h-10 px-4 text-sm",
-  md: "min-h-12 px-6 text-sm",
+  sm: "min-h-10 px-5 text-sm",
+  md: "min-h-14 px-7 text-sm min-w-[220px]",
 };
 
-export function ButtonLink({ href, children, variant = "primary", size = "md", className = "" }: ButtonLinkProps) {
+export function ButtonLink({ href, children, variant = "primary", size = "md", className = "", withIcon = true }: ButtonLinkProps) {
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-[var(--radius-sm)] border font-semibold tracking-normal transition ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`relative inline-flex items-center justify-center gap-4 rounded-full border font-bold tracking-normal transition ${variants[variant]} ${sizes[size]} ${className}`}
     >
-      {children}
+      <span>{children}</span>
+      {withIcon ? <IconButton tone="green" size="md" className={size === "sm" ? "size-6" : "absolute right-5"} /> : null}
     </Link>
   );
 }

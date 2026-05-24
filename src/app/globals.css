@@ -11,17 +11,23 @@
   --color-surface: #f4f4f4;
   --color-surface-warm: #eeeeee;
   --color-surface-blue: #f6f9fc;
-  --color-brand: #111111;
-  --color-brand-dark: #000000;
-  --color-brand-soft: #eeeeee;
-  --color-accent: #e7352c;
+  --color-surface-contrast: #111111;
+  --color-brand: #0071eb;
+  --color-brand-dark: #0058b8;
+  --color-brand-soft: #e8f3ff;
+  --color-blue-border: #4385f4;
+  --color-accent: #ff3f31;
   --color-accent-soft: #fff0ef;
+  --color-yellow: #ffbe00;
+  --color-green: #00ab41;
   --color-logo-blue: #2f80ed;
-  --color-logo-red: #e7352c;
-  --color-logo-yellow: #f2c94c;
-  --color-logo-green: #27ae60;
+  --color-logo-red: #ff3f31;
+  --color-logo-yellow: #ffbe00;
+  --color-logo-green: #00ab41;
 
-  --font-sans-fallback: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --font-sans-jp: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --font-display: "Futura", "Avenir Next", "Arial Black", var(--font-sans-jp);
+  --font-sans-fallback: var(--font-sans-jp);
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -32,15 +38,19 @@
   --font-size-4xl: 2.5rem;
   --font-size-5xl: 3.75rem;
 
-  --space-page-x: clamp(1.25rem, 3vw, 3rem);
+  --space-page-x: clamp(1.25rem, 2.78vw, 2.5rem);
   --space-section-y: clamp(4rem, 8vw, 7.5rem);
+  --space-section-y-compact: clamp(3rem, 6vw, 5rem);
+  --layout-header-height: 80px;
   --layout-container: 72rem;
-  --layout-wide: 82rem;
+  --layout-wide: 90rem;
   --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --shadow-card: none;
-  --shadow-soft: none;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-display: 7.5rem;
+  --shadow-card: 4px 6px 0 0 #000000;
+  --shadow-soft: 2px 3px 0 0 #000000;
 }
 
 @theme inline {
@@ -55,7 +65,10 @@
   --color-surface-blue: var(--color-surface-blue);
   --color-line: var(--color-line);
   --color-accent: var(--color-accent);
+  --color-yellow: var(--color-yellow);
+  --color-green: var(--color-green);
   --font-sans: var(--font-sans-jp);
+  --font-display: var(--font-display);
   --shadow-card: var(--shadow-card);
   --shadow-soft: var(--shadow-soft);
 }

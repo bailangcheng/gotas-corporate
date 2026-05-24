@@ -1,18 +1,26 @@
-import { ContactCta } from "@/components/sections/ContactCta";
+import { BannerStrip } from "@/components/sections/BannerStrip";
+import { FigmaContactSection } from "@/components/sections/FigmaContactSection";
 import { Hero } from "@/components/sections/Hero";
+import { MagazinePreview } from "@/components/sections/MagazinePreview";
+import { MarqueeBand } from "@/components/sections/MarqueeBand";
 import { NewsList } from "@/components/sections/NewsList";
+import { PageTopStrip } from "@/components/sections/PageTopStrip";
+import { PromisesSection } from "@/components/sections/PromisesSection";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
-import { SitemapPreview } from "@/components/sections/SitemapPreview";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <ServiceGrid />
-      <SitemapPreview />
+      <BannerStrip />
+      <MarqueeBand />
       <NewsList />
-      <ContactCta />
+      <MarqueeBand />
+      <MagazinePreview />
+      <ServiceGrid />
+      <PromisesSection />
+      <FigmaContactSection />
+      <PageTopStrip />
     </>
   );
 }
-
