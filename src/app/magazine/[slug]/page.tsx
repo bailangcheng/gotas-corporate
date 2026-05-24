@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
+import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { getPostBySlug, getPosts } from "@/lib/cms/posts";
 
@@ -40,15 +41,15 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <>
       <PageHero eyebrow={post.category} title={post.title} summary={post.excerpt} />
-      <section className="py-14 sm:py-16">
-        <Container>
-          <article className="mx-auto max-w-3xl rounded-lg border border-slate-200 bg-white p-6 leading-8 text-slate-700 sm:p-8">
-            <p className="text-sm text-slate-500">{post.publishedAt}</p>
-            <div className="mt-6 grid gap-5">
+      <section className="py-[var(--space-section-y)]">
+        <Container size="narrow">
+          <Card as="article" className="shadow-none">
+            <p className="text-sm font-semibold text-[var(--color-ink-muted)]">{post.publishedAt}</p>
+            <div className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)]">
               {post.body.map((block, index) => {
                 if (block.type === "heading") {
                   return (
-                    <h2 key={`${block.type}-${index}`} className="text-2xl font-semibold text-slate-950">
+                    <h2 key={`${block.type}-${index}`} className="text-2xl font-black text-[var(--color-ink)]">
                       {block.text}
                     </h2>
                   );
@@ -57,10 +58,9 @@ export default async function PostPage({ params }: PostPageProps) {
                 return <p key={`${block.type}-${index}`}>{block.text}</p>;
               })}
             </div>
-          </article>
+          </Card>
         </Container>
       </section>
     </>
   );
 }
-

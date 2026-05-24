@@ -4,7 +4,7 @@
 
 - `/` トップページ
 
-## 会社案内
+## 会社概要
 
 - `/company/message` 代表メッセージ
 - `/company/facts` 10の事実
@@ -17,11 +17,11 @@
 
 - `/business` 事業案内トップ
 - `/business/digital-signage` デジタルサイネージ事業
-- `/business/website` HP作成
+- `/business/website` HP制作
 - `/business/video-production` 動画制作
 - `/business/sns` SNS事業
 - `/business/recruitment-agency` 人材紹介業
-- `/business/ran-ran-tei` Ran-Ran亭
+- `/business/ran-ran-tei` らんらん亭
 - `/business/awabar-okinawa` awabar okinawa
 - `/business/gushi-frozen-foods` 具志冷凍食品
 - `/business/isunoki-souzaikan` いすの木惣菜館
@@ -50,4 +50,3 @@
 ## お問い合わせ
 
 - `/contact` なんでもお問い合わせフォーム
-

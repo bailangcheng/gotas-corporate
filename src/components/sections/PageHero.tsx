@@ -8,13 +8,14 @@ type PageHeroProps = {
 
 export function PageHero({ eyebrow, title, summary }: PageHeroProps) {
   return (
-    <section className="border-b border-slate-200 bg-slate-50 py-16 sm:py-20">
-      <Container>
-        <p className="text-sm font-semibold uppercase text-blue-700">{eyebrow}</p>
-        <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-normal text-slate-950 sm:text-5xl">{title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-700">{summary}</p>
+    <section className="border-b border-[var(--color-line)] bg-[var(--color-surface)] py-16 sm:py-20">
+      <Container size="wide">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-brand)]">{eyebrow}</p>
+        <h1 className="mt-5 max-w-5xl text-[length:var(--font-size-4xl)] font-black leading-[1.18] tracking-normal text-[var(--color-ink)] sm:text-[length:var(--font-size-5xl)]">
+          {title}
+        </h1>
+        <p className="mt-6 max-w-3xl text-lg leading-9 text-[var(--color-ink-soft)]">{summary}</p>
       </Container>
     </section>
   );
 }
-

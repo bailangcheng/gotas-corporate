@@ -1,19 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --brand-blue: #1d4ed8;
-  --brand-blue-dark: #1e3a8a;
-  --brand-slate: #0f172a;
-  --surface-muted: #f8fafc;
-  --border-subtle: #e2e8f0;
+  --color-canvas: #ffffff;
+  --color-ink: #111111;
+  --color-ink-soft: #333333;
+  --color-ink-muted: #666666;
+  --color-line: #222222;
+  --color-line-subtle: #d8d8d8;
+  --color-line-strong: #111111;
+  --color-surface: #f4f4f4;
+  --color-surface-warm: #eeeeee;
+  --color-surface-blue: #f6f9fc;
+  --color-brand: #111111;
+  --color-brand-dark: #000000;
+  --color-brand-soft: #eeeeee;
+  --color-accent: #e7352c;
+  --color-accent-soft: #fff0ef;
+  --color-logo-blue: #2f80ed;
+  --color-logo-red: #e7352c;
+  --color-logo-yellow: #f2c94c;
+  --color-logo-green: #27ae60;
+
+  --font-sans-fallback: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-5xl: 3.75rem;
+
+  --space-page-x: clamp(1.25rem, 3vw, 3rem);
+  --space-section-y: clamp(4rem, 8vw, 7.5rem);
+  --layout-container: 72rem;
+  --layout-wide: 82rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --shadow-card: none;
+  --shadow-soft: none;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-ink);
+  --color-brand: var(--color-brand);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-soft: var(--color-brand-soft);
+  --color-line-subtle: var(--color-line-subtle);
+  --color-surface: var(--color-surface);
+  --color-surface-warm: var(--color-surface-warm);
+  --color-surface-blue: var(--color-surface-blue);
+  --color-line: var(--color-line);
+  --color-accent: var(--color-accent);
   --font-sans: var(--font-sans-jp);
+  --shadow-card: var(--shadow-card);
+  --shadow-soft: var(--shadow-soft);
 }
 
 * {
@@ -22,21 +66,39 @@
 
 html {
   scroll-behavior: smooth;
+  text-rendering: geometricPrecision;
 }
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans-jp), "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans-jp), var(--font-sans-fallback);
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
-::selection {
-  background: #bfdbfe;
-  color: #0f172a;
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}

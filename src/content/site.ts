@@ -1,8 +1,10 @@
+export type SiteSection = "company" | "business" | "group" | "recruit" | "more";
+
 export type SitePage = {
   href: string;
   title: string;
   eyebrow: string;
-  section: "company" | "business" | "group" | "recruit" | "more";
+  section: SiteSection;
   summary: string;
 };
 
@@ -12,11 +14,24 @@ export type NavGroup = {
   items?: SitePage[];
 };
 
+export type BusinessItem = {
+  title: string;
+  label: string;
+  href: string;
+  summary: string;
+};
+
+export type FactItem = {
+  number: string;
+  title: string;
+  body: string;
+};
+
 export const siteConfig = {
   name: "GO-TAs",
-  title: "GO-TAsコーポレートサイト",
+  title: "GO-TAs コーポレートサイト",
   description:
-    "沖縄を拠点に、デジタルサイネージ、Web制作、動画制作、SNS、人材紹介、飲食事業を展開するGO-TAsのコーポレートサイトです。",
+    "沖縄を拠点に、デジタルサイネージ、Web制作、動画制作、SNS、人材紹介、飲食事業を横断して展開するGO-TAsのコーポレートサイトです。",
   url: "https://gotas.example.com",
   contactEmail: "info@example.com",
 };
@@ -27,14 +42,14 @@ export const companyPages: SitePage[] = [
     title: "代表メッセージ",
     eyebrow: "Message",
     section: "company",
-    summary: "代表の想い、事業に向き合う姿勢、これからのGO-TAsの方向性を伝えます。",
+    summary: "代表の想い、事業に向き合う姿勢、これからのGO-TAsの方向性を紹介します。",
   },
   {
     href: "/company/facts",
     title: "10の事実",
     eyebrow: "Facts",
     section: "company",
-    summary: "GO-TAsを短時間で理解できる数字や特徴を整理します。",
+    summary: "GO-TAsを短時間で理解できる約束や考え方を整理します。",
   },
   {
     href: "/company/overview",
@@ -69,7 +84,7 @@ export const companyPages: SitePage[] = [
 export const businessPages: SitePage[] = [
   {
     href: "/business",
-    title: "事業案内トップ",
+    title: "事業案内",
     eyebrow: "Business",
     section: "business",
     summary: "GO-TAsが展開する各事業の全体像を紹介します。",
@@ -83,7 +98,7 @@ export const businessPages: SitePage[] = [
   },
   {
     href: "/business/website",
-    title: "HP作成",
+    title: "HP制作",
     eyebrow: "Website",
     section: "business",
     summary: "企業・店舗向けWebサイト制作の内容と進め方を紹介します。",
@@ -111,10 +126,10 @@ export const businessPages: SitePage[] = [
   },
   {
     href: "/business/ran-ran-tei",
-    title: "Ran-Ran亭",
+    title: "らんらん亭",
     eyebrow: "Food",
     section: "business",
-    summary: "仕出し弁当・飲食関連事業としてのRan-Ran亭を紹介します。",
+    summary: "仕出し弁当・飲食関連事業としてのらんらん亭を紹介します。",
   },
   {
     href: "/business/awabar-okinawa",
@@ -166,7 +181,7 @@ export const groupPages: SitePage[] = [
 export const recruitPages: SitePage[] = [
   {
     href: "/recruit",
-    title: "採用トップ",
+    title: "採用情報",
     eyebrow: "Recruit",
     section: "recruit",
     summary: "GO-TAsで働く魅力、募集職種、採用方針を紹介します。",
@@ -206,12 +221,50 @@ export const staticPages = [
 ];
 
 export const navigation: NavGroup[] = [
-  { label: "会社案内", href: "/company/message", items: companyPages },
+  { label: "会社概要", href: "/company/message", items: companyPages },
   { label: "事業案内", href: "/business", items: businessPages },
   { label: "グループ", href: "/group/companies", items: groupPages },
   { label: "Magazine", href: "/magazine" },
   { label: "採用情報", href: "/recruit", items: recruitPages },
-  { label: "もっとGO-TAs", href: "/more/quotes", items: morePages },
+  { label: "GO-TAs+", href: "/more/quotes", items: morePages },
   { label: "お問い合わせ", href: "/contact" },
 ];
 
+export const businessItems: BusinessItem[] = businessPages
+  .filter((page) => page.href !== "/business")
+  .map((page) => ({
+    title: page.title,
+    label: page.eyebrow,
+    href: page.href,
+    summary: page.summary,
+  }));
+
+export const facts: FactItem[] = [
+  {
+    number: "01",
+    title: "全ては社会と家族のために。",
+    body: "GO-TAsは社会のために存在し、社員とその家族のために動く組織であり続けます。",
+  },
+  {
+    number: "02",
+    title: "フェアであるべき。",
+    body: "お客さま、取引先、メンバーに対して、すべての場面でフェアであることを大切にします。",
+  },
+  {
+    number: "03",
+    title: "地域に根ざして挑戦する。",
+    body: "沖縄を拠点に、デジタルとリアルの両面から地域の可能性を広げます。",
+  },
+  {
+    number: "04",
+    title: "事業を横断して価値をつくる。",
+    body: "制作、運用、人材、飲食の知見を組み合わせ、現場に合う解決策を提案します。",
+  },
+];
+
+export const companyOverview = [
+  ["会社名", "株式会社GO-TAs"],
+  ["所在地", "沖縄県内"],
+  ["事業内容", "Web制作、動画制作、SNS運用、デジタルサイネージ、人材紹介、飲食事業"],
+  ["備考", "正式情報はクライアント提供資料の確定後に更新"],
+];
