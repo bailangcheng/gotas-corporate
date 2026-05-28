@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { SitePage } from "@/content/site";
-import { businessItems, companyOverview, facts, groupPages } from "@/content/site";
+import { businessItems, groupPages } from "@/content/site";
+import { getCompanyOverview, toOverviewRows } from "@/lib/cms/company-overview";
+import { getFacts } from "@/lib/cms/facts";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
@@ -108,7 +110,9 @@ function MessageContent({ siblings }: { siblings: SitePage[] }) {
   );
 }
 
-function FactsContent({ siblings }: { siblings: SitePage[] }) {
+async function FactsContent({ siblings }: { siblings: SitePage[] }) {
+  const facts = await getFacts();
+
   return (
     <PageGrid siblings={siblings}>
       <div>
@@ -127,7 +131,10 @@ function FactsContent({ siblings }: { siblings: SitePage[] }) {
   );
 }
 
-function OverviewContent({ siblings }: { siblings: SitePage[] }) {
+async function OverviewContent({ siblings }: { siblings: SitePage[] }) {
+  const overview = await getCompanyOverview();
+  const rows = toOverviewRows(overview);
+
   return (
     <PageGrid siblings={siblings}>
       <div>
@@ -135,10 +142,10 @@ function OverviewContent({ siblings }: { siblings: SitePage[] }) {
         <Card className="mt-8 shadow-none">
           <h2 className="text-2xl font-black">会社概要</h2>
           <dl className="mt-6 divide-y divide-[var(--color-line)]">
-            {companyOverview.map(([term, value]) => (
-              <div key={term} className="grid gap-2 py-4 sm:grid-cols-[160px_1fr]">
-                <dt className="text-sm font-black text-[var(--color-ink)]">{term}</dt>
-                <dd className="text-sm leading-7 text-[var(--color-ink-soft)]">{value}</dd>
+            {rows.map((row) => (
+              <div key={row.label} className="grid gap-2 py-4 sm:grid-cols-[160px_1fr]">
+                <dt className="text-sm font-black text-[var(--color-ink)]">{row.label}</dt>
+                <dd className="text-sm leading-7 text-[var(--color-ink-soft)]">{row.value}</dd>
               </div>
             ))}
           </dl>

@@ -45,19 +45,26 @@ export default async function PostPage({ params }: PostPageProps) {
         <Container size="narrow">
           <Card as="article" className="shadow-none">
             <p className="text-sm font-semibold text-[var(--color-ink-muted)]">{post.publishedAt}</p>
-            <div className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)]">
-              {post.body.map((block, index) => {
-                if (block.type === "heading") {
-                  return (
-                    <h2 key={`${block.type}-${index}`} className="text-2xl font-black text-[var(--color-ink)]">
-                      {block.text}
-                    </h2>
-                  );
-                }
+            {post.bodyHtml ? (
+              <div
+                className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)] [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-[var(--color-ink)] [&_a]:text-[var(--color-brand)] [&_a]:underline"
+                dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+              />
+            ) : (
+              <div className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)]">
+                {post.body.map((block, index) => {
+                  if (block.type === "heading") {
+                    return (
+                      <h2 key={`${block.type}-${index}`} className="text-2xl font-black text-[var(--color-ink)]">
+                        {block.text}
+                      </h2>
+                    );
+                  }
 
-                return <p key={`${block.type}-${index}`}>{block.text}</p>;
-              })}
-            </div>
+                  return <p key={`${block.type}-${index}`}>{block.text}</p>;
+                })}
+              </div>
+            )}
           </Card>
         </Container>
       </section>

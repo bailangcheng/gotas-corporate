@@ -12,10 +12,11 @@ deployment foundations.
 - Primary language is Japanese.
 - Figma is a visual reference, not a strict pixel-perfect contract at this stage.
 - Lower page wireframes are still being collected and refined.
-- Magazine/news content should be managed through a simple CMS, with Notion as the
-  first candidate.
-- Domain, hosting account, GitHub/Vercel ownership, Notion account, production
-  credentials, legal text, copy, and final assets are provided by monora/client.
+- Magazine/news content is managed through **microCMS**, matching monora-web so
+  one editor operates both sites.
+- Hosting target is **Cloudflare Workers** via `@opennextjs/cloudflare`,
+  matching monora-web. Domain, Cloudflare account, microCMS workspace, Resend
+  account, legal text, copy, and final assets are provided by monora/client.
 
 ## Implementation stance
 

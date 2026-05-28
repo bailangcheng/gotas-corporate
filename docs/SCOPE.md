@@ -7,10 +7,10 @@
 - Common layout, header, footer, section components, and global CSS tokens.
 - Dummy lower pages based on the current sitemap.
 - Magazine/news list and detail pages using a mock CMS adapter.
-- Notion CMS adapter boundary and schema plan.
-- Contact page placeholder and implementation policy.
+- microCMS adapter boundary and schema plan (with mock fallback).
+- Contact / meeting inquiry API via Resend (`/api/inquiry`).
 - GitHub CI for lint, typecheck, and build.
-- Vercel-oriented deployment preparation.
+- Cloudflare Workers (OpenNext) deployment preparation.
 
 ## Out of scope unless separately agreed
 

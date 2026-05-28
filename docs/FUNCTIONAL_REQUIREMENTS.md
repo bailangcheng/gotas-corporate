@@ -10,16 +10,16 @@
 ## Magazine CMS
 
 - Article list and article detail pages exist.
-- CMS data is currently mocked.
-- Production CMS target is Notion.
-- The front end must not expose Notion API tokens.
+- Production CMS is **microCMS** (`magazine` endpoint).
+- When microCMS env vars are unset, the adapter falls back to mocked posts.
+- microCMS API key is server-side only; never exposed to client components.
 
 ## Contact
 
-- Initial implementation is a placeholder.
-- Final choice should be one of:
-  - Google Form or external form embed.
-  - Formspree/Tally-style managed form.
-  - Next.js API route plus email provider.
-- Saving inquiry data requires separate data handling agreement.
+- The contact page UI is still a placeholder; copy and design land later.
+- Submission target is the `/api/inquiry` route, which sends mail via Resend.
+- The route supports two channels (`type: "contact" | "meeting"`) with optional
+  per-channel `From:` / `To:` overrides.
+- Persisting inquiry payloads to storage is out of scope and requires a separate
+  data-handling agreement.
 

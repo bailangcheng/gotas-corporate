@@ -11,7 +11,7 @@ export const mockPosts: CmsPost[] = [
     body: [
       {
         type: "paragraph",
-        text: "このページはNotion CMS接続前の仮コンテンツです。Notion databaseの設計が確定後、公開記事と差し替えます。",
+        text: "このページはmicroCMS接続前の仮コンテンツです。microCMS側の運用が始まり次第、公開記事と差し替えます。",
       },
       {
         type: "heading",
@@ -19,7 +19,7 @@ export const mockPosts: CmsPost[] = [
       },
       {
         type: "paragraph",
-        text: "記事一覧、カテゴリ、タグ、公開日、SEO情報をNotion側で管理し、Next.js側で安全に取得して表示します。",
+        text: "記事一覧、カテゴリ、タグ、公開日、SEO情報をmicroCMS側で管理し、Next.jsはサーバーサイドで取得して表示します。",
       },
     ],
   },
