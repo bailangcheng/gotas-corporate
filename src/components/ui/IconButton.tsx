@@ -1,16 +1,17 @@
 import Image from "next/image";
 
 type IconButtonProps = {
-  direction?: "right" | "left";
+  direction?: "right" | "left" | "up" | "down";
   tone?: "white" | "green";
   size?: "sm" | "md" | "lg";
+  elevated?: boolean;
   className?: string;
 };
 
 const sizes = {
-  sm: "size-6",
-  md: "size-8",
-  lg: "size-[60px]",
+  sm: "size-6 rounded-full",
+  md: "size-8 rounded-full",
+  lg: "size-[60px] rounded-full border-[1.875px]",
 };
 
 const iconSizes = {
@@ -19,14 +20,32 @@ const iconSizes = {
   lg: 26,
 };
 
-export function IconButton({ direction = "right", tone = "white", size = "md", className = "" }: IconButtonProps) {
-  const isLeft = direction === "left";
+const rotations = {
+  right: "",
+  left: "rotate-180",
+  up: "-rotate-90",
+  down: "rotate-90",
+};
+
+export function IconButton({
+  direction = "right",
+  tone = "white",
+  size = "md",
+  elevated,
+  className = "",
+}: IconButtonProps) {
+  const isElevated = elevated ?? size === "lg";
+  const shadow = isElevated
+    ? size === "lg"
+      ? "drop-shadow-[1.875px_1.875px_0_black]"
+      : "drop-shadow-[1px_1px_0_black]"
+    : "";
 
   return (
     <span
-      className={`grid shrink-0 place-items-center rounded-[20px] border border-black ${
+      className={`grid shrink-0 place-items-center border border-black ${
         tone === "green" ? "bg-[var(--color-green)]" : "bg-white"
-      } drop-shadow-[1px_1px_0_black] ${sizes[size]} ${className}`}
+      } ${sizes[size]} ${shadow} ${className}`}
       aria-hidden="true"
     >
       <Image
@@ -34,7 +53,7 @@ export function IconButton({ direction = "right", tone = "white", size = "md", c
         alt=""
         width={iconSizes[size]}
         height={iconSizes[size]}
-        className={isLeft ? "rotate-180" : ""}
+        className={rotations[direction]}
       />
     </span>
   );

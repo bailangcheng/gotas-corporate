@@ -89,21 +89,25 @@ body {
   font-family: var(--font-sans-jp), var(--font-sans-fallback);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-img {
-  display: block;
-  max-width: 100%;
+@layer base {
+  img {
+    display: block;
+    max-width: 100%;
+  }
 }
 
 ::selection {
@@ -114,4 +118,28 @@ img {
 :focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 3px;
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee-x var(--marquee-duration, 30s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }

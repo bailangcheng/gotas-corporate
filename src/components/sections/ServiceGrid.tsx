@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { businessItems } from "@/content/site";
 import { Container } from "@/components/ui/Container";
+import { IconButton } from "@/components/ui/IconButton";
 
 const serviceImages: Record<string, string> = {
   "/business/digital-signage": "/figma/service-digital-signage.png",
@@ -15,7 +16,8 @@ const featuredServices = businessItems.filter((service) => serviceImages[service
 
 export function ServiceGrid() {
   return (
-    <section className="bg-[var(--color-brand)] py-[var(--space-section-y)] text-white lg:rounded-tl-[var(--radius-display)]">
+    <section className="bg-[var(--color-green)]">
+      <div className="bg-[var(--color-brand)] py-[var(--space-section-y)] text-white lg:rounded-tl-[var(--radius-display)]">
       <Container size="wide">
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-[family-name:var(--font-display)] text-5xl font-black uppercase leading-none sm:text-[80px]">Our Service</p>
@@ -40,14 +42,13 @@ export function ServiceGrid() {
               </div>
               <div className="flex min-h-[92px] items-center justify-between gap-5 px-8 py-6">
                 <h3 className="text-xl font-black leading-snug sm:text-2xl">{service.title}</h3>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-black bg-[var(--color-green)] text-lg font-black text-white shadow-[var(--shadow-soft)]">
-                  →
-                </span>
+                <IconButton tone="green" size="md" />
               </div>
             </Link>
           ))}
         </div>
       </Container>
+      </div>
     </section>
   );
 }
