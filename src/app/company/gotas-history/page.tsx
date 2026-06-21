@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/sections/PageHero";
@@ -90,7 +91,7 @@ export default function HistoryPage() {
 
               {/* 右: タイムライン */}
               <div className="flex-1 rounded-[20px] bg-surface px-5 py-4 sm:px-15 sm:py-6">
-                {historyData.map((entry, entryIdx) => (
+                {historyData.map((entry) => (
                   <div key={entry.year}>
                     {entry.events.map((event, eventIdx) => (
                       <div key={eventIdx}>
