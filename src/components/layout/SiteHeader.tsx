@@ -1,29 +1,45 @@
 import Link from "next/link";
-import { navigation, siteConfig } from "@/content/site";
+import { siteConfig } from "@/content/site";
+import { getPrimaryNewsPin } from "@/lib/cms/news-pin";
 import { Container } from "@/components/ui/Container";
+import { IconButton } from "@/components/ui/IconButton";
+import { Logo } from "@/components/ui/Logo";
+import { HeaderNav, MobileNav } from "@/components/layout/HeaderNav";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const pin = await getPrimaryNewsPin();
+
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <Container className="flex min-h-16 items-center justify-between gap-6">
-        <Link href="/" className="text-lg font-bold tracking-normal text-slate-950">
-          {siteConfig.name}
+    <header className="bg-accent">
+      <Container size="wide" className="flex min-h-(--layout-header-height) items-center gap-5">
+        <Link href="/" className="relative z-50 flex h-12 w-32 shrink-0 items-center justify-center rounded-full bg-white transition-transform hover:scale-90 min-[1400px]:h-15 min-[1400px]:w-40" aria-label={`${siteConfig.name} トップへ`}>
+          <Logo size="xs" className="min-[1400px]:hidden" />
+          <Logo size="sm" className="hidden min-[1400px]:block" />
         </Link>
-        <nav className="hidden items-center gap-5 text-sm font-medium text-slate-600 lg:flex">
-          {navigation.map((item) => (
-            <Link key={item.href} href={item.href} className="transition hover:text-blue-700">
-              {item.label}
+
+        {pin ? (
+          <div className="group hidden h-15 w-125 shrink-0 items-center gap-5 border-y border-black px-5 transition-colors hover:border-white min-[1400px]:flex">
+            <span className="font-display text-2xl font-black uppercase text-black transition-colors group-hover:text-white">News</span>
+            <span className="h-10 border-l border-black transition-colors group-hover:border-white" />
+            <span className="min-w-0 flex-1 overflow-hidden">
+              <span
+                className="marquee-track inline-flex whitespace-nowrap text-sm font-black text-black transition-colors group-hover:text-white"
+                style={{ "--marquee-duration": "22s" } as React.CSSProperties}
+              >
+                <span className="pr-20">{pin.label}</span>
+                <span className="pr-20" aria-hidden="true">{pin.label}</span>
+              </span>
+            </span>
+            <Link href={pin.linkUrl} className="flex-none">
+              <IconButton size="md" className="shadow-[1px_2px_0_0_#000000] transition-colors hover:bg-[#ffbe00]" />
             </Link>
-          ))}
-        </nav>
-        <Link
-          href="/contact"
-          className="inline-flex min-h-10 items-center rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-blue-700"
-        >
-          お問い合わせ
-        </Link>
+          </div>
+        ) : null}
+
+        <HeaderNav />
+
+        <MobileNav />
       </Container>
     </header>
   );
 }
-

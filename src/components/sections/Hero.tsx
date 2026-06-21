@@ -1,39 +1,47 @@
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { Container } from "@/components/ui/Container";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 export function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (!heroRef.current || !textRef.current) return;
+      const heroH = heroRef.current.offsetHeight;
+      // complete slide-in by the time user scrolls 40% of hero height
+      const progress = Math.min(window.scrollY / (heroH * 0.4), 1);
+      textRef.current.style.transform = `translateY(${progress * heroH}px)`;
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   return (
-    <section className="bg-[linear-gradient(135deg,#f8fafc_0%,#eef6ff_52%,#ffffff_100%)] py-20 sm:py-28">
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase text-blue-700">GO-TAs Corporate</p>
-            <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight tracking-normal text-slate-950 sm:text-6xl">
-              沖縄から、事業と人の可能性を広げる。
+    <section className="px-(--space-page-x) py-3">
+      {/* fixed max-width matches Figma artboard (1460px) minus side padding (2×40px) */}
+      <div
+        ref={heroRef}
+        className="relative mx-auto h-150 w-full max-w-345 overflow-hidden rounded-[20px] bg-[#d5d5d5] md:h-175"
+      >
+        <Image src="/images/home/hero.png" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-brand/20" />
+        <div className="relative flex h-full flex-col items-center justify-center">
+          <div ref={textRef} style={{ willChange: "transform" }}>
+            <h1
+              className="font-sans font-black leading-tight tracking-[0.06em] text-center text-white"
+              style={{ fontSize: "clamp(48px, 10vw, 152px)" }}
+            >
+              <span className="block whitespace-nowrap">未来をつなぐ、</span>
+              <span className="block whitespace-nowrap">価値を創る。</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-9 text-slate-700">
-              GO-TAsは、デジタルサイネージ、Web制作、動画制作、SNS、人材紹介、飲食事業を横断し、
-              地域に根ざした事業づくりを進めています。
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="/business">事業を見る</ButtonLink>
-              <ButtonLink href="/company/message" variant="secondary">
-                会社を知る
-              </ButtonLink>
-            </div>
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="grid gap-3">
-              {["Digital Signage", "Website", "Video", "SNS", "Recruitment", "Food Business"].map((item) => (
-                <div key={item} className="rounded-md border border-slate-200 bg-slate-50 px-4 py-4 text-slate-800">
-                  {item}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
-

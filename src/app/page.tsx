@@ -1,18 +1,20 @@
-import { ContactCta } from "@/components/sections/ContactCta";
-import { Hero } from "@/components/sections/Hero";
-import { NewsList } from "@/components/sections/NewsList";
+import { FigmaContactSection } from "@/components/sections/FigmaContactSection";
+import { HeroBlock } from "@/components/sections/HeroBlock";
+import { MagazinePreview } from "@/components/sections/MagazinePreview";
+import { PromisesSection } from "@/components/sections/PromisesSection";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
-import { SitemapPreview } from "@/components/sections/SitemapPreview";
+import { getFacts } from "@/lib/cms/facts";
 
-export default function Home() {
+export default async function Home() {
+  const facts = await getFacts();
+
   return (
     <>
-      <Hero />
+      <HeroBlock />
+      <MagazinePreview />
       <ServiceGrid />
-      <SitemapPreview />
-      <NewsList />
-      <ContactCta />
+      <PromisesSection facts={facts} />
+      <FigmaContactSection />
     </>
   );
 }
-

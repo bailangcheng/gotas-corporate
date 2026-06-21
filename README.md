@@ -4,20 +4,26 @@ Initial scaffold for the GO-TAs corporate website.
 
 ## Stack
 
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- Mock CMS adapter with future Notion integration
-- GitHub Actions CI
+- Next.js 16 (App Router, Turbopack) + React 19
+- TypeScript, Tailwind CSS v4
+- microCMS (`magazine` endpoint) with mock fallback when env unset
+- Resend for `/api/inquiry` (contact / meeting shared route)
+- Cloudflare Workers via `@opennextjs/cloudflare`
+- GitHub Actions CI (lint / typecheck / build)
+
+Stack matches monora-web so monora operates both sites from the same consoles.
 
 ## Scripts
 
 ```bash
-npm run dev
+npm run dev          # next dev
 npm run lint
 npm run typecheck
-npm run build
-npm run check
+npm run build        # next build
+npm run check        # lint + typecheck + build
+npm run cf:build     # OpenNext bundle for Cloudflare
+npm run cf:preview   # wrangler dev against the OpenNext bundle
+npm run cf:deploy    # build + wrangler deploy
 ```
 
 ## Project docs

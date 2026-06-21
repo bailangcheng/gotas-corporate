@@ -1,25 +1,40 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { IconButton } from "@/components/ui/IconButton";
 
 type ButtonLinkProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "yellow" | "ghost";
+  size?: "sm" | "md";
+  className?: string;
+  withIcon?: boolean;
 };
 
-export function ButtonLink({ href, children, variant = "primary" }: ButtonLinkProps) {
-  const classes =
-    variant === "primary"
-      ? "bg-blue-700 text-white hover:bg-blue-800"
-      : "border border-slate-300 bg-white text-slate-950 hover:border-blue-500 hover:text-blue-700";
+const variants = {
+  primary:
+    "border-black bg-[var(--color-green)] text-[#ffffff] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:bg-[var(--color-brand)]",
+  secondary:
+    "border-black bg-white text-foreground btn-fill",
+  yellow:
+    "border-black bg-yellow text-black shadow-soft hover:-translate-y-0.5",
+  ghost:
+    "border-transparent bg-transparent text-[var(--color-brand)] hover:bg-[var(--color-brand-soft)]",
+};
 
+const sizes = {
+  sm: "min-h-10 px-5 text-sm",
+  md: "min-h-14 px-7 text-base min-w-[220px]",
+};
+
+export function ButtonLink({ href, children, variant = "primary", size = "md", className = "", withIcon = true }: ButtonLinkProps) {
   return (
     <Link
       href={href}
-      className={`inline-flex min-h-11 items-center justify-center rounded-md px-5 text-sm font-semibold transition ${classes}`}
+      className={`relative inline-flex items-center justify-center gap-4 rounded-full border font-black tracking-normal transition ${variants[variant]} ${sizes[size]} ${className}`}
     >
-      {children}
+      <span className="relative z-10">{children}</span>
+      {withIcon ? <IconButton tone="green" size={size === "sm" ? "sm" : "md"} elevated={false} className={size === "sm" ? "" : "absolute right-5"} /> : null}
     </Link>
   );
 }
-
