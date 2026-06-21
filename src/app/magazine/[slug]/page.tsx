@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageHero } from "@/components/sections/PageHero";
-import { Card } from "@/components/ui/Card";
-import { Container } from "@/components/ui/Container";
 import { getPostBySlug, getPosts } from "@/lib/cms/posts";
+import { MagazineArticleContent } from "@/components/sections/MagazineArticleContent";
 
 type PostPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -19,11 +15,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-
-  if (!post) {
-    return {};
-  }
-
+  if (!post) return {};
   return {
     title: post.title,
     description: post.excerpt,
@@ -32,42 +24,41 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, allPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getPosts(),
+  ]);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
+
+  const newArticles = allPosts
+    .filter((p) => p.slug !== slug)
+    .slice(0, 3);
 
   return (
-    <>
-      <PageHero eyebrow={post.category} title={post.title} summary={post.excerpt} />
-      <section className="py-[var(--space-section-y)]">
-        <Container size="narrow">
-          <Card as="article" className="shadow-none">
-            <p className="text-sm font-semibold text-[var(--color-ink-muted)]">{post.publishedAt}</p>
-            {post.bodyHtml ? (
-              <div
-                className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)] [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-[var(--color-ink)] [&_a]:text-[var(--color-brand)] [&_a]:underline"
-                dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
-              />
-            ) : (
-              <div className="mt-8 grid gap-6 leading-8 text-[var(--color-ink-soft)]">
-                {post.body.map((block, index) => {
-                  if (block.type === "heading") {
-                    return (
-                      <h2 key={`${block.type}-${index}`} className="text-2xl font-black text-[var(--color-ink)]">
-                        {block.text}
-                      </h2>
-                    );
-                  }
+    <div className="relative overflow-x-hidden bg-[#ff3f31]">
 
-                  return <p key={`${block.type}-${index}`}>{block.text}</p>;
-                })}
-              </div>
-            )}
-          </Card>
-        </Container>
-      </section>
-    </>
+      {/* ── Decorative blobs (same as magazine list) ── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/svg/magazine/bg-01.svg"
+          alt=""
+          className="absolute top-0 left-0 w-full h-auto"
+        />
+      </div>
+
+      {/* ── Hero ── */}
+      <div className="relative z-10 flex min-h-106.25 md:min-h-120 flex-col items-center justify-center gap-2.5 px-4 text-center text-white">
+        <h2 className="font-display text-[clamp(40px,5.56vw,80px)] font-black leading-none whitespace-nowrap">
+          GO-TAs Magazine
+        </h2>
+        <p className="text-[clamp(18px,1.94vw,28px)] font-black">GO-TAsマガジン</p>
+      </div>
+
+      {/* ── Article content + new articles ── */}
+      <MagazineArticleContent post={post} newArticles={newArticles} />
+
+    </div>
   );
 }

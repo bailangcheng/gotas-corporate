@@ -2,11 +2,12 @@ import Image from "next/image";
 
 type LogoProps = {
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   tone?: "color" | "light";
 };
 
 const sizes = {
+  xs: { box: "h-[25.6px] w-[86px]", text: "text-xl" },
   sm: { box: "h-8 w-[108px]", text: "text-2xl" },
   md: { box: "h-10 w-[134px]", text: "text-3xl" },
   lg: { box: "h-12 w-[162px]", text: "text-4xl" },
@@ -16,7 +17,7 @@ export function Logo({ className = "", size = "md", tone = "color" }: LogoProps)
   const light = tone === "light";
 
   if (!light) {
-    return <Image src="/figma/logo.svg" alt="GO-TAs" width={162} height={48} className={`${sizes[size].box} ${className}`} priority />;
+    return <Image src="/icons/logo.svg" alt="GO-TAs" width={162} height={48} className={`${sizes[size].box} ${className}`} priority />;
   }
 
   return (

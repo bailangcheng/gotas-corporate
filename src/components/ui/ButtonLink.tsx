@@ -5,7 +5,7 @@ import { IconButton } from "@/components/ui/IconButton";
 type ButtonLinkProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "yellow" | "ghost";
   size?: "sm" | "md";
   className?: string;
   withIcon?: boolean;
@@ -15,7 +15,9 @@ const variants = {
   primary:
     "border-black bg-[var(--color-green)] text-[#ffffff] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:bg-[var(--color-brand)]",
   secondary:
-    "border-black bg-white text-[#111111] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:text-[var(--color-brand)]",
+    "border-black bg-white text-foreground btn-fill",
+  yellow:
+    "border-black bg-yellow text-black shadow-soft hover:-translate-y-0.5",
   ghost:
     "border-transparent bg-transparent text-[var(--color-brand)] hover:bg-[var(--color-brand-soft)]",
 };

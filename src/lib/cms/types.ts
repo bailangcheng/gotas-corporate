@@ -38,6 +38,7 @@ export type CmsCompanyOverviewRow = {
 export type CmsCompanyOverview = {
   companyName: string;
   address: string;
+  mapUrl?: string;
   founded?: string;
   representative?: string;
   capital?: string;

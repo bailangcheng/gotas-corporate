@@ -7,6 +7,8 @@ interface InquiryPayload {
   kana?: string;
   company?: string;
   email?: string;
+  phone?: string;
+  inquiryTypes?: string[];
   message?: string;
 }
 
@@ -47,9 +49,11 @@ export async function POST(request: Request) {
     const email = body.email?.trim() ?? "";
     const message = body.message?.trim() ?? "";
     const kana = body.kana?.trim() ?? "";
+    const phone = body.phone?.trim() ?? "";
+    const inquiryTypes = body.inquiryTypes ?? [];
     const type = body.type ?? "contact";
 
-    if (!name || !company || !email || !message) {
+    if (!name || !email || !message) {
       return NextResponse.json(
         { ok: false, message: "必須項目が未入力です。" },
         { status: 400 },
@@ -75,24 +79,30 @@ export async function POST(request: Request) {
 
     const subjectPrefix = type === "meeting" ? "[無料作戦会議]" : "[お問い合わせ]";
     const subject = `${subjectPrefix} ${name} 様から新規送信`;
-    const textBody = [
+
+    const textLines = [
       `種別: ${type}`,
       `氏名: ${name}`,
       `氏名（カナ）: ${kana || "-"}`,
-      `会社・団体名: ${company}`,
+      company ? `会社・団体名: ${company}` : null,
       `メールアドレス: ${email}`,
+      phone ? `電話番号: ${phone}` : null,
+      inquiryTypes.length > 0 ? `お問合せの種類: ${inquiryTypes.join("、")}` : null,
       "",
       "内容:",
       message,
-    ].join("\n");
+    ];
+    const textBody = textLines.filter((l) => l !== null).join("\n");
 
     const htmlBody = `
       <h2>${escapeHtml(subjectPrefix)} 新規送信</h2>
       <p><strong>種別:</strong> ${escapeHtml(type)}</p>
       <p><strong>氏名:</strong> ${escapeHtml(name)}</p>
       <p><strong>氏名（カナ）:</strong> ${escapeHtml(kana || "-")}</p>
-      <p><strong>会社・団体名:</strong> ${escapeHtml(company)}</p>
+      ${company ? `<p><strong>会社・団体名:</strong> ${escapeHtml(company)}</p>` : ""}
       <p><strong>メールアドレス:</strong> ${escapeHtml(email)}</p>
+      ${phone ? `<p><strong>電話番号:</strong> ${escapeHtml(phone)}</p>` : ""}
+      ${inquiryTypes.length > 0 ? `<p><strong>お問合せの種類:</strong> ${escapeHtml(inquiryTypes.join("、"))}</p>` : ""}
       <hr />
       <p><strong>内容</strong></p>
       <p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>

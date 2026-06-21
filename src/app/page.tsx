@@ -1,26 +1,20 @@
-import { BannerStrip } from "@/components/sections/BannerStrip";
 import { FigmaContactSection } from "@/components/sections/FigmaContactSection";
-import { Hero } from "@/components/sections/Hero";
+import { HeroBlock } from "@/components/sections/HeroBlock";
 import { MagazinePreview } from "@/components/sections/MagazinePreview";
-import { MarqueeBand } from "@/components/sections/MarqueeBand";
-import { NewsList } from "@/components/sections/NewsList";
-import { PageTopStrip } from "@/components/sections/PageTopStrip";
 import { PromisesSection } from "@/components/sections/PromisesSection";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
+import { getFacts } from "@/lib/cms/facts";
 
-export default function Home() {
+export default async function Home() {
+  const facts = await getFacts();
+
   return (
     <>
-      <Hero />
-      <BannerStrip />
-      <MarqueeBand />
-      <NewsList />
-      <MarqueeBand />
+      <HeroBlock />
       <MagazinePreview />
       <ServiceGrid />
-      <PromisesSection />
+      <PromisesSection facts={facts} />
       <FigmaContactSection />
-      <PageTopStrip />
     </>
   );
 }

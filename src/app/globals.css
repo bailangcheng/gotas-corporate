@@ -1,25 +1,114 @@
 @import "tailwindcss";
 
+/* ── Local fonts ──────────────────────────────────────────────── */
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicBook.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicDemi.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaCyrillicHeavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zen Kaku Gothic New";
+  src: url("/fonts/ZenKakuGothicNew-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zen Kaku Gothic New";
+  src: url("/fonts/ZenKakuGothicNew-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zen Kaku Gothic New";
+  src: url("/fonts/ZenKakuGothicNew-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zen Kaku Gothic New";
+  src: url("/fonts/ZenKakuGothicNew-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zen Kaku Gothic New";
+  src: url("/fonts/ZenKakuGothicNew-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --color-canvas: #ffffff;
-  --color-ink: #111111;
+  /* ── Figma palette (source of truth) ── */
+  --color-canvas: #ffffff;     /* Figma: FFFFFF */
+  --color-ink: #111111;        /* Figma: 111111 */
+  --color-black: #000000;      /* Figma: 000000 */
   --color-ink-soft: #333333;
   --color-ink-muted: #666666;
   --color-line: #222222;
-  --color-line-subtle: #d8d8d8;
+  --color-line-subtle: #d9d9d9; /* Figma: D9D9D9 */
   --color-line-strong: #111111;
-  --color-surface: #f4f4f4;
+  --color-surface: #f4f4f4;    /* Figma: F4F4F4 */
   --color-surface-warm: #eeeeee;
   --color-surface-blue: #f6f9fc;
   --color-surface-contrast: #111111;
-  --color-brand: #0071eb;
+  --color-brand: #0071eb;      /* Figma: 0071EB */
   --color-brand-dark: #0058b8;
   --color-brand-soft: #e8f3ff;
   --color-blue-border: #4385f4;
-  --color-accent: #ff3f31;
+  --color-accent: #ff3f31;     /* Figma: FF3F31 */
   --color-accent-soft: #fff0ef;
-  --color-yellow: #ffbe00;
-  --color-green: #00ab41;
+  --color-yellow: #ffbe00;     /* Figma: FFBE00 */
+  --color-green: #00ab41;      /* Figma: 00AB41 */
   --color-logo-blue: #2f80ed;
   --color-logo-red: #ff3f31;
   --color-logo-yellow: #ffbe00;
@@ -54,21 +143,31 @@
 }
 
 @theme inline {
-  --color-background: var(--color-canvas);
-  --color-foreground: var(--color-ink);
-  --color-brand: var(--color-brand);
-  --color-brand-dark: var(--color-brand-dark);
-  --color-brand-soft: var(--color-brand-soft);
-  --color-line-subtle: var(--color-line-subtle);
-  --color-surface: var(--color-surface);
-  --color-surface-warm: var(--color-surface-warm);
-  --color-surface-blue: var(--color-surface-blue);
-  --color-line: var(--color-line);
-  --color-accent: var(--color-accent);
-  --color-yellow: var(--color-yellow);
-  --color-green: var(--color-green);
+  /* colors → Tailwind: bg-*, text-*, border-* */
+  --color-background: var(--color-canvas);       /* bg-background   */
+  --color-foreground: var(--color-ink);           /* text-foreground */
+  --color-black: var(--color-black);              /* text-black      */
+  --color-ink: var(--color-ink);                  /* text-ink        */
+  --color-ink-soft: var(--color-ink-soft);        /* text-ink-soft   */
+  --color-ink-muted: var(--color-ink-muted);      /* text-ink-muted  */
+  --color-brand: var(--color-brand);              /* text-brand      */
+  --color-brand-dark: var(--color-brand-dark);    /* text-brand-dark */
+  --color-brand-soft: var(--color-brand-soft);    /* bg-brand-soft   */
+  --color-line: var(--color-line);                /* border-line     */
+  --color-line-subtle: var(--color-line-subtle);  /* border-line-subtle */
+  --color-surface: var(--color-surface);          /* bg-surface      */
+  --color-surface-warm: var(--color-surface-warm);/* bg-surface-warm */
+  --color-surface-blue: var(--color-surface-blue);/* bg-surface-blue */
+  --color-surface-contrast: var(--color-surface-contrast);
+  --color-accent: var(--color-accent);            /* text-accent     */
+  --color-accent-soft: var(--color-accent-soft);  /* bg-accent-soft  */
+  --color-yellow: var(--color-yellow);            /* text-yellow     */
+  --color-green: var(--color-green);              /* text-green      */
+  --color-blue-border: var(--color-blue-border);  /* border-blue-border */
+  /* fonts */
   --font-sans: var(--font-sans-jp);
   --font-display: var(--font-display);
+  /* shadows */
   --shadow-card: var(--shadow-card);
   --shadow-soft: var(--shadow-soft);
 }
@@ -87,6 +186,54 @@ body {
   background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans-jp), var(--font-sans-fallback);
+}
+
+@keyframes nav-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Button: slide-fill hover (white → yellow) ──────────────────── */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-yellow);
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.btn-fill:not([disabled]):hover::before,
+.btn-fill:not([disabled]):focus-visible::before {
+  transform-origin: 0% 50%;
+  transform: scaleX(1);
+}
+
+/* ── Button: press-in shadow (押し込み) ─────────────────────────── */
+.btn-press {
+  box-shadow: 2px 4px 0 0 #000000;
+  transition: box-shadow 0.06s ease, transform 0.06s ease;
+}
+.btn-press:not([disabled]):active {
+  box-shadow: 0 0 0 0 #000000;
+  transform: translate(2px, 4px);
 }
 
 @layer base {
@@ -134,12 +281,22 @@ body {
   will-change: transform;
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
+.marquee-track-reverse {
+  animation: marquee-x var(--marquee-duration, 30s) linear infinite;
+  animation-direction: reverse;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
   }
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

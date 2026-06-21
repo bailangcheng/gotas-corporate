@@ -1,56 +1,44 @@
 import Link from "next/link";
-import { navigation, siteConfig } from "@/content/site";
+import { siteConfig } from "@/content/site";
 import { getPrimaryNewsPin } from "@/lib/cms/news-pin";
 import { Container } from "@/components/ui/Container";
 import { IconButton } from "@/components/ui/IconButton";
 import { Logo } from "@/components/ui/Logo";
+import { HeaderNav, MobileNav } from "@/components/layout/HeaderNav";
 
 export async function SiteHeader() {
   const pin = await getPrimaryNewsPin();
 
   return (
-    <header className="sticky top-0 z-40 bg-[var(--color-accent)]/95 backdrop-blur">
-      <Container size="wide" className="flex min-h-[var(--layout-header-height)] items-center gap-5">
-        <Link href="/" className="flex h-[60px] w-[160px] shrink-0 items-center justify-center rounded-full bg-white" aria-label={`${siteConfig.name} トップへ`}>
-          <Logo size="sm" />
+    <header className="bg-accent">
+      <Container size="wide" className="flex min-h-(--layout-header-height) items-center gap-5">
+        <Link href="/" className="relative z-50 flex h-12 w-32 shrink-0 items-center justify-center rounded-full bg-white transition-transform hover:scale-90 min-[1400px]:h-15 min-[1400px]:w-40" aria-label={`${siteConfig.name} トップへ`}>
+          <Logo size="xs" className="min-[1400px]:hidden" />
+          <Logo size="sm" className="hidden min-[1400px]:block" />
         </Link>
 
         {pin ? (
-          <Link
-            href={pin.linkUrl}
-            className="hidden h-[60px] min-w-0 flex-1 items-center gap-5 border-y border-black px-5 text-black lg:flex"
-          >
-            <span className="font-[family-name:var(--font-display)] text-2xl font-black uppercase">News</span>
-            <span className="h-10 border-l border-black" />
-            <span className="min-w-0 flex-1 truncate text-sm font-black">{pin.label}</span>
-            <IconButton size="md" />
-          </Link>
+          <div className="group hidden h-15 w-125 shrink-0 items-center gap-5 border-y border-black px-5 transition-colors hover:border-white min-[1400px]:flex">
+            <span className="font-display text-2xl font-black uppercase text-black transition-colors group-hover:text-white">News</span>
+            <span className="h-10 border-l border-black transition-colors group-hover:border-white" />
+            <span className="min-w-0 flex-1 overflow-hidden">
+              <span
+                className="marquee-track inline-flex whitespace-nowrap text-sm font-black text-black transition-colors group-hover:text-white"
+                style={{ "--marquee-duration": "22s" } as React.CSSProperties}
+              >
+                <span className="pr-20">{pin.label}</span>
+                <span className="pr-20" aria-hidden="true">{pin.label}</span>
+              </span>
+            </span>
+            <Link href={pin.linkUrl} className="flex-none">
+              <IconButton size="md" className="shadow-[1px_2px_0_0_#000000] transition-colors hover:bg-[#ffbe00]" />
+            </Link>
+          </div>
         ) : null}
 
-        <nav className="hidden h-[60px] shrink-0 items-center gap-4 rounded-full bg-white px-8 text-sm font-bold text-[var(--color-ink)] lg:flex" aria-label="主要ナビゲーション">
-          {navigation.map((item) => (
-            <Link key={item.href} href={item.href} className="transition hover:text-[var(--color-brand)]">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <HeaderNav />
 
-        <details className="group relative ml-auto lg:hidden">
-          <summary className="flex min-h-10 cursor-pointer list-none items-center rounded-full border border-black bg-white px-4 text-sm font-bold shadow-[var(--shadow-soft)] marker:hidden">
-            Menu
-          </summary>
-          <nav className="absolute right-0 top-12 w-64 rounded-[var(--radius-md)] border border-black bg-white p-3 shadow-[var(--shadow-card)]">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block rounded-[var(--radius-sm)] px-3 py-3 text-sm font-bold text-[var(--color-ink)] hover:bg-[var(--color-surface-blue)] hover:text-[var(--color-brand)]"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </details>
+        <MobileNav />
       </Container>
     </header>
   );

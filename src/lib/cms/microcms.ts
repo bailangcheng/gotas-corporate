@@ -413,6 +413,70 @@ export async function getRecruitJobsFromMicroCMS(
   }
 }
 
+interface MicroCMSNewsItem {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title?: string;
+  slug?: string;
+  body?: string;
+  excerpt?: string;
+}
+
+function toCmsNewsPost(item: MicroCMSNewsItem): CmsPost {
+  const slug = (item.slug?.trim() || item.id).trim();
+  const bodyHtml = item.body ?? "";
+  const excerpt = item.excerpt?.trim() || stripHtml(bodyHtml).slice(0, 160);
+  return {
+    slug,
+    title: item.title ?? "Untitled",
+    excerpt,
+    category: "ニュース",
+    tags: [],
+    publishedAt: (item.publishedAt ?? item.createdAt ?? "").slice(0, 10),
+    body: [],
+    bodyHtml,
+  };
+}
+
+export async function getNewsArticlesFromMicroCMS(limit = 24): Promise<CmsPost[] | null> {
+  const client = getClient();
+  if (!client) return null;
+  try {
+    const data = await client.getList<MicroCMSNewsItem>({
+      endpoint: "news",
+      queries: { limit, orders: "-publishedAt" },
+    });
+    if (!Array.isArray(data.contents) || data.contents.length === 0) return null;
+    return data.contents.map(toCmsNewsPost);
+  } catch (error) {
+    console.error("[microcms] getList news failed:", error);
+    return null;
+  }
+}
+
+export async function getNewsArticleBySlugFromMicroCMS(slug: string): Promise<CmsPost | null> {
+  const client = getClient();
+  if (!client) return null;
+  try {
+    const data = await client.getList<MicroCMSNewsItem>({
+      endpoint: "news",
+      queries: { filters: `slug[equals]${slug}`, limit: 1 },
+    });
+    const hit = data.contents?.[0];
+    if (hit) return toCmsNewsPost(hit);
+    const byId = await client
+      .getListDetail<MicroCMSNewsItem>({ endpoint: "news", contentId: slug })
+      .catch(() => null);
+    return byId ? toCmsNewsPost(byId) : null;
+  } catch (error) {
+    console.error("[microcms] getNewsArticleBySlug failed:", error);
+    return null;
+  }
+}
+
 interface MicroCMSLegalDocument {
   title?: string;
   body?: string;

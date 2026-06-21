@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { PageHero } from "@/components/sections/PageHero";
-import { Card } from "@/components/ui/Card";
-import { Container } from "@/components/ui/Container";
+import { ContactDecorations } from "@/components/ui/ContactDecorations";
 
 export const metadata: Metadata = {
   title: "お問い合わせ",
@@ -11,22 +10,21 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <>
-      <PageHero
-        eyebrow="Contact"
-        title="なんでもお問い合わせフォーム"
-        summary="事業、採用、取材、協業など、GO-TAsへのお問い合わせはこちらからお送りください。"
-      />
-      <section className="py-[var(--space-section-y)]">
-        <Container size="narrow">
-          <Card className="shadow-none">
+    <div className="bg-accent">
+      {/* ヒーロー */}
+      <PageHero eyebrow="CONTACT" title="お問い合わせ" />
+
+      {/* 青いフォームセクション — rounded-tr の背後に赤が見える */}
+      <section className="relative overflow-hidden bg-brand rounded-tr-(--radius-display)">
+        <ContactDecorations />
+
+        {/* フォームカード */}
+        <div className="relative px-(--space-page-x) py-30 flex flex-col items-center">
+          <div className="w-full max-w-240 rounded-[20px] bg-white px-10 py-25 [box-shadow:6px_8px_0_0_#000000]">
             <ContactForm />
-            <p className="mt-8 text-xs leading-6 text-[var(--color-ink-muted)]">
-              送信内容はメールで担当者に届きます。営業日2〜3日以内を目安にご返信します。
-            </p>
-          </Card>
-        </Container>
+          </div>
+        </div>
       </section>
-    </>
+    </div>
   );
 }

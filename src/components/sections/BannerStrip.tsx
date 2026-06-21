@@ -1,59 +1,126 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Container } from "@/components/ui/Container";
-
-const banners = ["バナー", "バナー", "バナー", "バナー", "バナー", "バナー"];
+import Image from "next/image";
+import Link from "next/link";
+import { IconButton } from "@/components/ui/IconButton";
+import type { CmsPost } from "@/lib/cms/types";
 
 const STEP_INTERVAL_MS = 2800;
 const SLIDE_DURATION_MS = 900;
 
-export function BannerStrip() {
-  const loop = [...banners, ...banners];
+type BannerCard = {
+  slug: string;
+  title: string;
+  coverImage?: string;
+};
+
+function BannerCarousel({ cards }: { cards: BannerCard[] }) {
+  const loop = [...cards, ...cards];
   const [step, setStep] = useState(0);
   const [animate, setAnimate] = useState(true);
-  const resetTimeoutRef = useRef<number | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    const id = window.setInterval(() => {
+  const startInterval = () => {
+    if (intervalRef.current !== null) window.clearInterval(intervalRef.current);
+    intervalRef.current = window.setInterval(() => {
       setAnimate(true);
       setStep((n) => n + 1);
     }, STEP_INTERVAL_MS);
-    return () => window.clearInterval(id);
-  }, []);
+  };
 
   useEffect(() => {
-    if (step < banners.length) return;
-    resetTimeoutRef.current = window.setTimeout(() => {
-      setAnimate(false);
-      setStep(0);
-    }, SLIDE_DURATION_MS);
+    startInterval();
     return () => {
-      if (resetTimeoutRef.current !== null) window.clearTimeout(resetTimeoutRef.current);
+      if (intervalRef.current !== null) window.clearInterval(intervalRef.current);
     };
-  }, [step]);
+  }, []);
+
+  // Reset to beginning seamlessly after the slide animation completes.
+  // setTimeout is more reliable than transitionend — browsers may skip firing
+  // transitionend for off-screen composited elements during page scroll.
+  useEffect(() => {
+    if (step < cards.length) return;
+    const id = window.setTimeout(() => {
+      setAnimate(false);
+      setStep((s) => s - cards.length);
+    }, SLIDE_DURATION_MS);
+    return () => window.clearTimeout(id);
+  }, [step, cards.length]);
+
+  const handlePrev = () => {
+    setAnimate(true);
+    setStep((n) => (n <= 0 ? cards.length - 1 : n - 1));
+    startInterval();
+  };
+
+  const handleNext = () => {
+    setAnimate(true);
+    setStep((n) => n + 1);
+    startInterval();
+  };
 
   return (
-    <section className="overflow-hidden bg-[var(--color-accent)] py-5">
-      <Container size="wide" className="overflow-hidden">
+    <div>
+      {/* Full-width strip — no horizontal padding, section overflow-hidden clips it */}
+      <div className="overflow-hidden">
         <div
-          className="flex w-max gap-7 ease-[cubic-bezier(0.65,0,0.35,1)]"
+          ref={trackRef}
+          className="flex w-max gap-7"
           style={{
             transform: `translate3d(calc(-1 * ${step} * (var(--banner-card-width) + 1.75rem)), 0, 0)`,
             transition: animate ? `transform ${SLIDE_DURATION_MS}ms cubic-bezier(0.65, 0, 0.35, 1)` : "none",
             ["--banner-card-width" as string]: "clamp(280px, 28vw, 433px)",
           }}
         >
-          {loop.map((label, index) => (
-            <div
-              key={`${label}-${index}`}
-              className="grid aspect-[433/242] w-[var(--banner-card-width)] shrink-0 place-items-center rounded-xl bg-[#d5d5d5] text-2xl font-black text-[#7f7f7f]"
+          {loop.map((card, index) => (
+            <Link
+              key={`${card.slug}-${index}`}
+              href={`/magazine/${card.slug}`}
+              className="group relative aspect-[433/242] w-(--banner-card-width) shrink-0 overflow-hidden rounded-xl bg-[#d5d5d5]"
             >
-              {label}
-            </div>
+              {card.coverImage ? (
+                <Image
+                  src={card.coverImage}
+                  alt={card.title}
+                  fill
+                  sizes="(max-width: 768px) 280px, 433px"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-[#d5d5d5]">
+                  <span className="text-sm font-bold text-[#999]">{card.title}</span>
+                </div>
+              )}
+            </Link>
           ))}
         </div>
-      </Container>
+      </div>
+
+      {/* Buttons aligned to page margin */}
+      <div className="mt-6 flex justify-end gap-3 px-[var(--space-page-x)]">
+        <button onClick={handlePrev} aria-label="前へ">
+          <IconButton size="md" direction="left" elevated={false} className="shadow-[1px_2px_0_0_#000000] transition-colors hover:bg-yellow" />
+        </button>
+        <button onClick={handleNext} aria-label="次へ">
+          <IconButton size="md" direction="right" elevated={false} className="shadow-[1px_2px_0_0_#000000] transition-colors hover:bg-yellow" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function BannerStrip({ posts }: { posts: CmsPost[] }) {
+  const cards: BannerCard[] = posts.slice(0, 6).map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    coverImage: p.coverImage,
+  }));
+
+  return (
+    <section className="overflow-hidden pt-10 pb-20 lg:pb-32.5">
+      <BannerCarousel cards={cards} />
     </section>
   );
 }

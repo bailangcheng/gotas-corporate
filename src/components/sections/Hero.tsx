@@ -1,27 +1,47 @@
+"use client";
+
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
+import { useEffect, useRef } from "react";
 
 export function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (!heroRef.current || !textRef.current) return;
+      const heroH = heroRef.current.offsetHeight;
+      // complete slide-in by the time user scrolls 40% of hero height
+      const progress = Math.min(window.scrollY / (heroH * 0.4), 1);
+      textRef.current.style.transform = `translateY(${progress * heroH}px)`;
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   return (
-    <section className="overflow-hidden bg-[var(--color-accent)] py-5">
-      <Container size="wide">
-        <div className="relative min-h-[min(700px,calc(100vh-var(--layout-header-height)-40px))] overflow-hidden rounded-[var(--radius-lg)] bg-[#d5d5d5]">
-          <Image src="/figma/home-hero.png" alt="" fill priority sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-[var(--color-brand)]/20" />
-          <div className="relative flex min-h-[min(700px,calc(100vh-var(--layout-header-height)-40px))] flex-col justify-center px-8 py-14 sm:px-16">
-            <div>
-              <h1 className="text-5xl font-black leading-[1.12] tracking-normal text-white sm:text-7xl lg:text-[104px] xl:text-[120px]">
-                未来をつなぐ、
-                <br />
-                価値を創る。
-              </h1>
-              <p className="mt-7 max-w-2xl text-base font-bold leading-8 text-white sm:text-lg">
-                沖縄を拠点に、デジタルサイネージ、Web制作、動画制作、SNS、人材紹介、飲食事業を横断して展開しています。
-              </p>
-            </div>
+    <section className="px-(--space-page-x) py-3">
+      {/* fixed max-width matches Figma artboard (1460px) minus side padding (2×40px) */}
+      <div
+        ref={heroRef}
+        className="relative mx-auto h-150 w-full max-w-345 overflow-hidden rounded-[20px] bg-[#d5d5d5] md:h-175"
+      >
+        <Image src="/images/home/hero.png" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-brand/20" />
+        <div className="relative flex h-full flex-col items-center justify-center">
+          <div ref={textRef} style={{ willChange: "transform" }}>
+            <h1
+              className="font-sans font-black leading-tight tracking-[0.06em] text-center text-white"
+              style={{ fontSize: "clamp(48px, 10vw, 152px)" }}
+            >
+              <span className="block whitespace-nowrap">未来をつなぐ、</span>
+              <span className="block whitespace-nowrap">価値を創る。</span>
+            </h1>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

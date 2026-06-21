@@ -39,9 +39,11 @@ export default async function StaticPage({ params }: StaticPageProps) {
   const siblings = getSiblingPages(page.section);
 
   return (
-    <>
-      <PageHero eyebrow={page.eyebrow} title={page.title} summary={page.summary} />
-      <StaticPageContent page={page} siblings={siblings} />
-    </>
+    <div className="bg-accent">
+      <PageHero eyebrow={page.eyebrow} title={page.title} />
+      <div className="rounded-tr-(--radius-display) bg-white">
+        <StaticPageContent page={page} siblings={siblings} />
+      </div>
+    </div>
   );
 }
