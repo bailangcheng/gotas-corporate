@@ -47,4 +47,4 @@ jobs:
         run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ccb205dc06c2a606672644985983f7dc
+          CLOUDFLARE_ACCOUNT_ID: c19933f609b1ca73ab543718bf5cd52c
