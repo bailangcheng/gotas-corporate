@@ -3,7 +3,6 @@ import type {
   CmsBusinessDetail,
   CmsBusinessFeature,
   CmsBusinessRelatedLink,
-  CmsFact,
   CmsGroupCompany,
   CmsGroupCompanyType,
   CmsHistoryItem,
@@ -37,14 +36,6 @@ interface MicroCMSMagazineItem {
   isPinned?: boolean;
 }
 
-interface MicroCMSFactItem {
-  id: string;
-  number?: string;
-  title?: string;
-  body?: string;
-  order?: number;
-}
-
 interface MicroCMSNewsPinItem {
   id: string;
   label?: string;
@@ -64,6 +55,13 @@ function getClient() {
 function stripHtml(html: string): string {
   return html.replaceAll(/<[^>]+>/g, "").trim();
 }
+
+/**
+ * magazine 系 fetch のキャッシュ設定。revalidate: 1時間の時間ベース ISR。
+ * オンデマンド破棄は /api/revalidate の revalidatePath("/magazine" 等) が担当する。
+ * ※ open-next の incrementalCache が "dummy" の間は no-op（docs/DATA_FRESHNESS.md）。
+ */
+const MAGAZINE_CACHE = { next: { revalidate: 3600 } };
 
 function normalizeCategory(value: MicroCMSMagazineItem["category"]): string {
   if (!value) return "";
@@ -105,6 +103,7 @@ export async function getMagazinePostsFromMicroCMS(limit = 24): Promise<CmsPost[
     const data = await client.getList<MicroCMSMagazineItem>({
       endpoint: "magazine",
       queries: { limit, orders: "-publishedAt" },
+      customRequestInit: MAGAZINE_CACHE,
     });
     if (!Array.isArray(data.contents) || data.contents.length === 0) return null;
     return data.contents.map(toCmsPost);
@@ -121,42 +120,22 @@ export async function getMagazinePostBySlugFromMicroCMS(slug: string): Promise<C
     const data = await client.getList<MicroCMSMagazineItem>({
       endpoint: "magazine",
       queries: { filters: `slug[equals]${slug}`, limit: 1 },
+      customRequestInit: MAGAZINE_CACHE,
     });
     const hit = data.contents?.[0];
     if (hit) return toCmsPost(hit);
 
     // Fall back to treating the slug as a microCMS content ID.
     const byId = await client
-      .getListDetail<MicroCMSMagazineItem>({ endpoint: "magazine", contentId: slug })
+      .getListDetail<MicroCMSMagazineItem>({
+        endpoint: "magazine",
+        contentId: slug,
+        customRequestInit: MAGAZINE_CACHE,
+      })
       .catch(() => null);
     return byId ? toCmsPost(byId) : null;
   } catch (error) {
     console.error("[microcms] getPostBySlug failed:", error);
-    return null;
-  }
-}
-
-function toCmsFact(item: MicroCMSFactItem): CmsFact {
-  return {
-    number: item.number ?? "",
-    title: item.title ?? "",
-    body: item.body ?? "",
-    order: typeof item.order === "number" ? item.order : undefined,
-  };
-}
-
-export async function getFactsFromMicroCMS(limit = 20): Promise<CmsFact[] | null> {
-  const client = getClient();
-  if (!client) return null;
-  try {
-    const data = await client.getList<MicroCMSFactItem>({
-      endpoint: "facts",
-      queries: { limit, orders: "order" },
-    });
-    if (!Array.isArray(data.contents) || data.contents.length === 0) return null;
-    return data.contents.map(toCmsFact);
-  } catch (error) {
-    console.error("[microcms] getList facts failed:", error);
     return null;
   }
 }
@@ -413,69 +392,9 @@ export async function getRecruitJobsFromMicroCMS(
   }
 }
 
-interface MicroCMSNewsItem {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  title?: string;
-  slug?: string;
-  body?: string;
-  excerpt?: string;
-}
-
-function toCmsNewsPost(item: MicroCMSNewsItem): CmsPost {
-  const slug = (item.slug?.trim() || item.id).trim();
-  const bodyHtml = item.body ?? "";
-  const excerpt = item.excerpt?.trim() || stripHtml(bodyHtml).slice(0, 160);
-  return {
-    slug,
-    title: item.title ?? "Untitled",
-    excerpt,
-    category: "ニュース",
-    tags: [],
-    publishedAt: (item.publishedAt ?? item.createdAt ?? "").slice(0, 10),
-    body: [],
-    bodyHtml,
-  };
-}
-
-export async function getNewsArticlesFromMicroCMS(limit = 24): Promise<CmsPost[] | null> {
-  const client = getClient();
-  if (!client) return null;
-  try {
-    const data = await client.getList<MicroCMSNewsItem>({
-      endpoint: "news",
-      queries: { limit, orders: "-publishedAt" },
-    });
-    if (!Array.isArray(data.contents) || data.contents.length === 0) return null;
-    return data.contents.map(toCmsNewsPost);
-  } catch (error) {
-    console.error("[microcms] getList news failed:", error);
-    return null;
-  }
-}
-
-export async function getNewsArticleBySlugFromMicroCMS(slug: string): Promise<CmsPost | null> {
-  const client = getClient();
-  if (!client) return null;
-  try {
-    const data = await client.getList<MicroCMSNewsItem>({
-      endpoint: "news",
-      queries: { filters: `slug[equals]${slug}`, limit: 1 },
-    });
-    const hit = data.contents?.[0];
-    if (hit) return toCmsNewsPost(hit);
-    const byId = await client
-      .getListDetail<MicroCMSNewsItem>({ endpoint: "news", contentId: slug })
-      .catch(() => null);
-    return byId ? toCmsNewsPost(byId) : null;
-  } catch (error) {
-    console.error("[microcms] getNewsArticleBySlug failed:", error);
-    return null;
-  }
-}
+// NOTE: News は独立エンドポイントを持たず、magazine の絞り込みビューとして
+// src/lib/cms/news-articles.ts が提供する。かつて存在した `news` エンドポイント用
+// アダプタ（getNewsArticlesFromMicroCMS 等）は撤去済み。
 
 interface MicroCMSLegalDocument {
   title?: string;

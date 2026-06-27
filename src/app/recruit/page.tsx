@@ -200,7 +200,11 @@ export default function RecruitPage() {
                   <span className="text-brand">パート・アルバイト</span>採用はこちら
                 </span>
               </div>
-              <Link href="/recruit/part-time">
+              <Link
+                href="https://jp.indeed.com/cmp/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEgo-Tas/jobs/l-%E9%82%A3%E8%A6%87%E5%B8%82-%E6%B3%89%E5%B4%8E"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span className="lg:hidden grid shrink-0 place-items-center size-10 rounded-full bg-green drop-shadow-[1.25px_1.25px_0_black]" aria-hidden="true">
                   <Image src="/icons/external-link.svg" width={17} height={17} alt="" />
                 </span>

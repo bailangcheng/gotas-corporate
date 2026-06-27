@@ -55,7 +55,7 @@ export async function NewsList() {
 
   const articleRows: NewsRow[] = articles.slice(0, Math.max(0, 4 - pinRows.length)).map((article) => ({
     key: `article-${article.slug}`,
-    href: `/news/${article.slug}`,
+    href: `/magazine/${article.slug}`,
     date: article.publishedAt.replaceAll("-", "."),
     category: article.category || "ニュース",
     title: article.title,
@@ -124,17 +124,17 @@ export async function NewsList() {
                     {/* SP layout */}
                     <div className="flex flex-col gap-2 lg:hidden">
                       <div className="flex items-center gap-3">
-                        <span className="font-display text-sm">{row.date}</span>
-                        <span className="rounded-full border border-black bg-white px-4 py-0.5 text-xs text-foreground">{row.category}</span>
+                        <span className="font-display text-sm font-bold">{row.date}</span>
+                        <span className="rounded-full border border-black bg-white px-4 py-0.5 text-xs font-bold text-foreground">{row.category}</span>
                         <IconButton size="sm" tone="transparent" className="ml-auto shrink-0 transition-opacity hover:opacity-20" />
                       </div>
                       <span className="text-sm font-bold text-foreground">{row.title}</span>
                     </div>
                     {/* PC layout */}
                     <div className="hidden lg:grid lg:grid-cols-[110px_120px_1fr_32px] lg:items-center lg:gap-10">
-                      <span className="font-display text-base">{row.date}</span>
-                      <span className="w-fit rounded-full border border-black bg-white px-5 py-1 text-sm text-foreground">{row.category}</span>
-                      <span className="text-base font-black">{row.title}</span>
+                      <span className="font-display text-base font-bold">{row.date}</span>
+                      <span className="w-fit rounded-full border border-black bg-white px-5 py-1 text-sm font-bold text-foreground">{row.category}</span>
+                      <span className="text-base font-bold">{row.title}</span>
                       <IconButton size="sm" tone="transparent" className="transition-opacity hover:opacity-20" />
                     </div>
                   </Link>

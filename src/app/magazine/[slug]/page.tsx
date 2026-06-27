@@ -16,9 +16,25 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return {};
+  const url = `/magazine/${post.slug}`;
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url,
+      publishedTime: post.publishedAt || undefined,
+      images: post.coverImage ? [{ url: post.coverImage }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: post.coverImage ? [post.coverImage] : undefined,
+    },
   };
 }
 
@@ -53,7 +69,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <h2 className="font-display text-[clamp(40px,5.56vw,80px)] font-black leading-none whitespace-nowrap">
           GO-TAs Magazine
         </h2>
-        <p className="text-[clamp(18px,1.94vw,28px)] font-black">GO-TAsマガジン</p>
+        <p className="text-[clamp(18px,1.94vw,28px)] font-bold">GO-TAsマガジン</p>
       </div>
 
       {/* ── Article content + new articles ── */}

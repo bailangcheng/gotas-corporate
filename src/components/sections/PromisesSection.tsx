@@ -116,7 +116,7 @@ export function PromisesSection({ facts }: PromisesSectionProps) {
           <div className="mt-17 flex items-center justify-center">
             <Link
               href="/gotas-plus"
-              className="relative inline-flex h-20 w-75 items-center justify-center gap-4 rounded-full border border-black bg-white text-lg font-black text-black btn-fill btn-press"
+              className="relative inline-flex h-20 w-75 items-center justify-center gap-4 rounded-full border border-black bg-white text-lg font-bold text-black btn-fill btn-press"
             >
               <span>全てを見る</span>
               <IconButton tone="green" className="absolute right-6" />
@@ -157,7 +157,7 @@ function PromiseFront({ fact }: { fact: PromiseItem }) {
           className="max-h-33.75 w-auto object-contain"
         />
       </span>
-      <span className="mb-7 px-5 text-center text-[17px] font-black leading-snug">{fact.title}</span>
+      <span className="mb-7 px-5 text-center text-[17px] font-bold leading-snug">{fact.title}</span>
     </span>
   );
 }

@@ -5,6 +5,8 @@ import { getNewsArticles } from "@/lib/cms/news-articles";
 export const metadata: Metadata = {
   title: "News | GO-TAs",
   description: "GO-TAsグループからのお知らせ・最新情報をお届けします。",
+  alternates: { canonical: "/news" },
+  openGraph: { title: "News | GO-TAs", url: "/news" },
 };
 
 export default async function NewsPage() {
@@ -35,7 +37,7 @@ export default async function NewsPage() {
               {articles.map((article) => (
                 <Link
                   key={article.slug}
-                  href={`/news/${article.slug}`}
+                  href={`/magazine/${article.slug}`}
                   className="group flex flex-col gap-2 py-8 transition hover:opacity-70 sm:flex-row sm:items-center sm:gap-10"
                 >
                   <span className="font-display text-sm font-medium text-ink-muted shrink-0">

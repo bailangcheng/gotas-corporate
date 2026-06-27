@@ -38,17 +38,34 @@ function NavDropdown({
         </div>
         <div className="self-stretch border-l border-line-subtle" />
         <div className="flex flex-1 flex-wrap gap-x-10 gap-y-4">
-          {subItems.map((page) => (
-            <Link
-              key={page.href}
-              href={page.href}
-              onClick={onClose}
-              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-bold text-foreground transition hover:text-brand"
-            >
-              <span className="size-3 shrink-0 rounded-full bg-[#d9d9d9]" aria-hidden="true" />
-              {page.title}
-            </Link>
-          ))}
+          {subItems.map((page) => {
+            const className =
+              "flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-bold text-foreground transition hover:text-brand";
+            const dot = <span className="size-3 shrink-0 rounded-full bg-[#d9d9d9]" aria-hidden="true" />;
+
+            if (page.externalHref) {
+              return (
+                <a
+                  key={page.href}
+                  href={page.externalHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={onClose}
+                  className={className}
+                >
+                  {dot}
+                  {page.title}
+                </a>
+              );
+            }
+
+            return (
+              <Link key={page.href} href={page.href} onClick={onClose} className={className}>
+                {dot}
+                {page.title}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -317,16 +334,29 @@ function ExpandedLinks({
         >
           {item.label}トップ
         </Link>
-        {subItems.map((p) => (
-          <Link
-            key={p.href}
-            href={p.href}
-            onClick={onClose}
-            className="text-sm font-bold text-black transition hover:text-brand"
-          >
-            {p.title}
-          </Link>
-        ))}
+        {subItems.map((p) =>
+          p.externalHref ? (
+            <a
+              key={p.href}
+              href={p.externalHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="text-sm font-bold text-black transition hover:text-brand"
+            >
+              {p.title}
+            </a>
+          ) : (
+            <Link
+              key={p.href}
+              href={p.href}
+              onClick={onClose}
+              className="text-sm font-bold text-black transition hover:text-brand"
+            >
+              {p.title}
+            </Link>
+          )
+        )}
       </div>
     );
   }

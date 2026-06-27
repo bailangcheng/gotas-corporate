@@ -5,22 +5,29 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { CmsPost } from '@/lib/cms/types';
 
-const CATEGORIES = [
-  { label: 'すべて', value: '' },
-  { label: '# コーポレート', value: 'コーポレート' },
-  { label: '# 飲食', value: '飲食' },
-  { label: '# IT', value: 'IT' },
-  { label: '# 人材支援', value: '人材支援' },
-  { label: '# 不動産', value: '不動産' },
-  { label: '# お知らせ', value: 'お知らせ' },
-  { label: '# レポート', value: 'レポート' },
-];
-
 const POSTS_PER_PAGE = 9;
 
 export default function MagazineContent({ posts }: { posts: CmsPost[] }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [page, setPage] = useState(1);
+
+  // カテゴリのフィルタボタンは記事データから動的に生成する。
+  // ハードコードすると microCMS の実カテゴリとずれてボタンが何もマッチしなくなる。
+  const CATEGORIES = useMemo(() => {
+    const seen = new Set<string>();
+    const values: string[] = [];
+    for (const post of posts) {
+      const c = post.category?.trim();
+      if (c && !seen.has(c)) {
+        seen.add(c);
+        values.push(c);
+      }
+    }
+    return [
+      { label: 'すべて', value: '' },
+      ...values.map((c) => ({ label: `# ${c}`, value: c })),
+    ];
+  }, [posts]);
 
   function toggleTag(value: string) {
     if (value === '') {
@@ -65,7 +72,7 @@ export default function MagazineContent({ posts }: { posts: CmsPost[] }) {
       />
 
       {/* ── Tag filter ── */}
-      <div className="bg-white border border-black rounded-[20px] md:rounded-[60px] shadow-[3px_5px_0_black] px-2.75 py-4 md:px-5 flex flex-wrap items-center gap-y-2.5">
+      <div className="bg-white border border-black rounded-[20px] md:rounded-[60px] shadow-[3px_5px_0_black] px-5 py-4 md:px-12 flex flex-wrap items-center gap-y-2.5">
         {CATEGORIES.map((cat, idx) => {
           const isAll = cat.value === '';
           const isActive = isAll
@@ -74,7 +81,7 @@ export default function MagazineContent({ posts }: { posts: CmsPost[] }) {
           return (
             <Fragment key={cat.value}>
               {idx > 0 && (
-                <span className="h-3 w-0.5 bg-black mx-5 md:mx-7.5 shrink-0" aria-hidden="true" />
+                <span className="h-3 w-0.5 bg-black mx-2.5 md:mx-4 shrink-0" aria-hidden="true" />
               )}
               <button
                 type="button"
@@ -99,14 +106,14 @@ export default function MagazineContent({ posts }: { posts: CmsPost[] }) {
             記事がありません
           </p>
         ) : (
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-15 md:gap-y-25">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-15 md:gap-y-25">
             {pagedPosts.map((post, idx) => {
               const isFirst = safePage === 1 && idx === 0;
               return (
                 <Link
                   key={post.slug}
                   href={`/magazine/${post.slug}`}
-                  className="group flex flex-col gap-6 md:gap-7.5 w-full max-w-[335px] md:w-100 md:max-w-none shrink-0"
+                  className="group flex flex-col gap-6 md:gap-7.5 w-full max-w-[335px] md:max-w-none mx-auto"
                 >
                   {/* Thumbnail */}
                   <div className="relative h-47 md:h-56.25 overflow-hidden rounded-[10px] bg-[#17140c]">
@@ -142,14 +149,14 @@ export default function MagazineContent({ posts }: { posts: CmsPost[] }) {
 
                   {/* Tags + date */}
                   <div className="flex items-center md:items-start justify-between gap-3">
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-nowrap gap-1.5 min-w-0">
                       {(post.tags.length > 0 ? post.tags : [post.category])
                         .filter(Boolean)
                         .slice(0, 2)
                         .map((tag) => (
                           <span
                             key={tag}
-                            className="inline-flex items-center h-6 md:h-7 rounded-[30px] border border-black bg-white px-3.5 md:px-4 text-[12px] md:text-[14px] font-bold leading-none"
+                            className="inline-flex items-center h-6 md:h-7 shrink-0 rounded-[30px] border border-black bg-white px-3.5 md:px-4 text-[12px] md:text-[14px] font-bold leading-none text-black whitespace-nowrap"
                           >
                             # {tag}
                           </span>

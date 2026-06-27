@@ -37,22 +37,29 @@ npx wrangler deploy                 # ship Worker + assets
 ```
 
 `wrangler.jsonc` ships with a `gotas-corporate-staging` worker. Add an
-`env.production` block before pointing the production domain at it.
+`env.production` block (or a custom-domain `routes` entry) before pointing the
+production domain at it.
 
-## CI
+## CI / CD
 
-GitHub Actions runs:
+`.github/workflows/ci.yml` has two jobs:
 
-- `npm ci`
-- `npm run lint`
-- `npm run typecheck`
-- `npm run build`
+1. **check** (every PR + push to `main`): `npm ci` → `npm run lint` →
+   `npm run typecheck` → `npm run build`.
+2. **deploy** (push to `main` only, `environment: production`): `npm run cf:build`
+   → `npx wrangler deploy`.
 
-OpenNext + wrangler deploy steps run manually until account ownership is
-confirmed.
+The deploy job needs:
+
+- `CLOUDFLARE_API_TOKEN` — **add to GitHub repo Secrets** (not yet guaranteed set).
+- `CLOUDFLARE_ACCOUNT_ID` — already hardcoded in the workflow (`c19933...`, GO-TAs IT account).
+- Production runtime env / secrets (`NEXT_PUBLIC_SITE_URL`, `MICROCMS_*`, `RESEND_*`,
+  `MICROCMS_WEBHOOK_SECRET`) set on the Worker via `wrangler secret put` / dashboard.
 
 ## Release policy
 
-- Preview deploys (Workers staging) are used for review.
+- Pushes to `main` auto-deploy to the Worker once `CLOUDFLARE_API_TOKEN` is set.
 - Production domain connection only after account ownership and DNS
   responsibilities are confirmed.
+
+See [PRE_LAUNCH_TODO.md](PRE_LAUNCH_TODO.md) for the full go-live checklist.

@@ -228,7 +228,7 @@ export function ContactForm() {
           }}
         />
         <p className="text-sm font-bold leading-none text-black">
-          <Link href="/privacy-policy" className="text-brand underline">
+          <Link href="/privacy" className="text-brand underline">
             プライバシーポリシー
           </Link>
           に同意

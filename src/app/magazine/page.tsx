@@ -5,6 +5,8 @@ import MagazineContent from "@/components/sections/MagazineContent";
 export const metadata: Metadata = {
   title: "Magazine | GO-TAs",
   description: "GO-TAsグループの最新ニュース、事業紹介、社内レポートをお届けします。",
+  alternates: { canonical: "/magazine" },
+  openGraph: { title: "Magazine | GO-TAs", url: "/magazine" },
 };
 
 export default async function MagazinePage() {
@@ -19,7 +21,7 @@ export default async function MagazinePage() {
         src="/svg/magazine/bg-1.svg"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none select-none absolute top-0 left-1/2 -translate-x-1/2 w-full h-auto z-40"
+        className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-full h-auto z-40"
       />
 
       {/* ── Hero ── */}
@@ -27,7 +29,7 @@ export default async function MagazinePage() {
         <h1 className="font-display text-[60px] md:text-[80px] font-black leading-none md:whitespace-nowrap">
           GO-TAs Magazine
         </h1>
-        <p className="text-[28px] font-black">GO-TAsマガジン</p>
+        <p className="text-[28px] font-bold">GO-TAsマガジン</p>
       </div>
 
       {/* ── Green content section ──

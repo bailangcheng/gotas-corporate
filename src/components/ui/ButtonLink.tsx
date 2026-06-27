@@ -31,7 +31,7 @@ export function ButtonLink({ href, children, variant = "primary", size = "md", c
   return (
     <Link
       href={href}
-      className={`relative inline-flex items-center justify-center gap-4 rounded-full border font-black tracking-normal transition ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`relative inline-flex items-center justify-center gap-4 rounded-full border font-bold tracking-normal transition ${variants[variant]} ${sizes[size]} ${className}`}
     >
       <span className="relative z-10">{children}</span>
       {withIcon ? <IconButton tone="green" size={size === "sm" ? "sm" : "md"} elevated={false} className={size === "sm" ? "" : "absolute right-5"} /> : null}

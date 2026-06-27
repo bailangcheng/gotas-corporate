@@ -158,7 +158,9 @@ export default function CompanyPage() {
         <Container size="wide" className="relative flex flex-wrap justify-center gap-10 lg:gap-20">
           {/* Card 1 — GO-TAs company overview */}
           <a
-            href="#"
+            href="https://www.canva.com/design/DAGymGN8DLU/JgPDuS4ajC2J1uiorbQNzg/edit"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex w-88.75 h-43 px-5 items-center justify-between overflow-hidden rounded-[20px] bg-white shadow-card transition-opacity hover:opacity-90 lg:w-160 lg:h-auto lg:shrink-0 lg:px-12.5 lg:py-21.5"
           >
             <div className="flex flex-col gap-3">
@@ -175,7 +177,9 @@ export default function CompanyPage() {
 
           {/* Card 2 — M&A pitch */}
           <a
-            href="#"
+            href="https://www.canva.com/design/DAG5flHHwUw/ZfCkCOCmkxpRlAIiRbDucg/edit"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex w-88.75 h-43 px-5 items-center justify-between overflow-hidden rounded-[20px] bg-white shadow-card transition-opacity hover:opacity-90 lg:w-160 lg:h-auto lg:shrink-0 lg:px-12.5 lg:py-21.5"
           >
             <div className="flex flex-col gap-3">

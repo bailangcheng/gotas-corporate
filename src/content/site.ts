@@ -7,6 +7,8 @@ export type SitePage = {
   category?: string;
   section: SiteSection;
   summary: string;
+  /** ナビゲーションで外部URL（別タブ）へ飛ばす場合に指定。href はルーティング／sitemap 用に維持。 */
+  externalHref?: string;
 };
 
 export type NavGroup = {
@@ -50,7 +52,8 @@ export const siteConfig = {
   title: "GO-TAs コーポレートサイト",
   description:
     "沖縄を拠点に、デジタルサイネージ、Web制作、動画制作、SNS、人材紹介、飲食事業を横断して展開するGO-TAsのコーポレートサイトです。",
-  url: "https://gotas.example.com",
+  // 本番ドメインは NEXT_PUBLIC_SITE_URL で上書きする（canonical / sitemap / OGP が参照）。
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://gotas.example.com",
   contactEmail: "info@example.com",
 };
 
@@ -209,6 +212,8 @@ export const recruitPages: SitePage[] = [
     eyebrow: "Part-time",
     section: "recruit",
     summary: "パート・アルバイト採用の募集要項を掲載します。",
+    externalHref:
+      "https://jp.indeed.com/cmp/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEgo-Tas/jobs/l-%E9%82%A3%E8%A6%87%E5%B8%82-%E6%B3%89%E5%B4%8E",
   },
 ];
 

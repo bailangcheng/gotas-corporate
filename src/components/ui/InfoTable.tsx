@@ -23,11 +23,11 @@ export function InfoTable({ rows, labelVariant = "neutral" }: InfoTableProps) {
           {i > 0 && <div className="border-t border-[var(--color-line-subtle)]" />}
           <div className="flex flex-col gap-5 px-5 py-6 sm:flex-row sm:gap-10 sm:px-10 sm:py-4">
             <span
-              className={`shrink-0 text-base font-black leading-relaxed ${labelClass} sm:w-50`}
+              className={`shrink-0 text-base font-bold leading-relaxed ${labelClass} sm:w-50`}
             >
               {row.label}
             </span>
-            <div className="flex-1 text-base font-black leading-relaxed text-[var(--color-ink)]">
+            <div className="flex-1 text-base font-bold leading-relaxed text-[var(--color-ink)]">
               <p className="whitespace-pre-wrap">{row.value}</p>
               {row.valueHref && (
                 <a

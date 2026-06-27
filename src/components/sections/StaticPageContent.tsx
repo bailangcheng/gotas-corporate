@@ -173,7 +173,7 @@ async function OverviewContent() {
                 <p className="font-display text-4xl font-black text-[var(--color-ink)]">
                   {fact.number}
                 </p>
-                <p className="mt-4 text-sm font-black leading-relaxed">{fact.title}</p>
+                <p className="mt-4 text-sm font-bold leading-relaxed">{fact.title}</p>
               </Card>
             ))}
           </div>
@@ -415,7 +415,7 @@ function PromiseCard({ fact, index }: { fact: CmsFact; index: number }) {
           className="max-h-[135px] w-auto object-contain"
         />
       </div>
-      <p className="mb-7 px-4 text-center text-[17px] font-black leading-snug">
+      <p className="mb-7 px-4 text-center text-[17px] font-bold leading-snug">
         {fact.title}
       </p>
     </div>
@@ -500,7 +500,7 @@ function PlaceholderContent({ page, siblings }: { page: SitePage; siblings: Site
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {["目的", "掲載内容", "必要素材", "確認事項"].map((label) => (
             <Card key={label} tone="muted" className="rounded-[var(--radius-sm)] p-5 shadow-none">
-              <h3 className="font-black text-[var(--color-ink)]">{label}</h3>
+              <h3 className="font-bold text-[var(--color-ink)]">{label}</h3>
               <p className="mt-2 text-sm leading-7 text-[var(--color-ink-soft)]">ワイヤーフレーム確定後に記入します。</p>
             </Card>
           ))}

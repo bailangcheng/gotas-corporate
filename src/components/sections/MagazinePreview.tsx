@@ -70,14 +70,14 @@ export async function MagazinePreview() {
 
                 {/* Tags + date */}
                 <div className="flex items-center md:items-start justify-between gap-3">
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-nowrap gap-1.5 min-w-0">
                     {(post.tags.length > 0 ? post.tags : [post.category])
                       .filter(Boolean)
                       .slice(0, 2)
                       .map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center h-6 md:h-7 rounded-[30px] border border-black bg-white px-3.5 md:px-4 text-[12px] md:text-[14px] font-bold leading-none"
+                          className="inline-flex items-center h-6 md:h-7 shrink-0 rounded-[30px] border border-black bg-white px-3.5 md:px-4 text-[12px] md:text-[14px] font-bold leading-none text-black whitespace-nowrap"
                         >
                           # {tag}
                         </span>

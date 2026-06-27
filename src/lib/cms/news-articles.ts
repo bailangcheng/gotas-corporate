@@ -1,27 +1,22 @@
-import { getNewsArticlesFromMicroCMS, getNewsArticleBySlugFromMicroCMS } from "./microcms";
+import { getPosts } from "./posts";
 import type { CmsPost } from "./types";
 
-const mockNewsArticles: CmsPost[] = [
-  {
-    slug: "sample-news-01",
-    title: "嵐々亭本店、新ブランドの販売を始めました",
-    excerpt: "嵐々亭本店にて新しいブランドの販売を開始いたしました。",
-    category: "ニュース",
-    tags: [],
-    publishedAt: "2026-01-01",
-    body: [],
-    bodyHtml:
-      "<p>五星の最大の特徴は、「沖縄×北海道」という2つの地域の魅力を掛け合わせた海鮮丼です。</p><p>また、五星では「五感で楽しむ体験型の店舗」というコンセプトを大切にしています。</p>",
-  },
-];
+/**
+ * News は magazine の絞り込みビュー（独立エンドポイントは持たない）。
+ * カテゴリ/タグがこのリストに該当する magazine 記事を「お知らせ」として扱う。
+ * 記事の正規URLは /magazine/[slug] に一本化している。
+ */
+export const NEWS_CATEGORIES = ["お知らせ", "ニュース", "プレス", "Press"];
 
-export async function getNewsArticles(): Promise<CmsPost[]> {
-  const fromCms = await getNewsArticlesFromMicroCMS(100);
-  return fromCms ?? mockNewsArticles;
+function isNews(post: CmsPost): boolean {
+  return (
+    NEWS_CATEGORIES.includes(post.category) ||
+    post.tags.some((tag) => NEWS_CATEGORIES.includes(tag))
+  );
 }
 
-export async function getNewsArticleBySlug(slug: string): Promise<CmsPost | undefined> {
-  const fromCms = await getNewsArticleBySlugFromMicroCMS(slug);
-  if (fromCms) return fromCms;
-  return mockNewsArticles.find((post) => post.slug === slug);
+/** お知らせ一覧（magazine をニュース系カテゴリで絞り込み、公開日降順）。 */
+export async function getNewsArticles(): Promise<CmsPost[]> {
+  const posts = await getPosts();
+  return posts.filter(isNews);
 }

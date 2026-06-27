@@ -49,7 +49,7 @@ export function SiteFooter() {
                       {!group.headingless && (
                         <Link
                           href={group.href}
-                          className="text-lg font-black text-white transition hover:opacity-30"
+                          className="text-lg font-bold text-white transition hover:opacity-30"
                         >
                           {group.label}
                         </Link>

@@ -20,7 +20,7 @@ const groupCompanies: GroupCompany[] = [
   {
     name: "有限会社すばる商事",
     logo: "/images/company/group/subaru-shoji-logo.png",
-    href: "#",
+    href: "https://www.subaru-shoji.com/",
     description:
       "テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります。",
   },
