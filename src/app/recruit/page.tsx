@@ -86,7 +86,7 @@ export default function RecruitPage() {
    
 
           {/* Headline */}
-          <div className="mt-50 md:mt-20 pb-[clamp(3rem,6vw,7rem)]">
+          <div className="mt-34 md:mt-20 pb-[clamp(3rem,6vw,7rem)]">
             <h1 className="font-sans font-bold text-white leading-[1.14] text-[clamp(66px,9vw,130px)] tracking-tight">
               人生、<br />もっと欲張っていい
             </h1>

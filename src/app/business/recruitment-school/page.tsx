@@ -4,45 +4,49 @@ import { IconButton } from "@/components/ui/IconButton";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "いすの木惣菜館 | 惣菜・弁当事業",
+  title: "医療人材紹介・キャリア支援 | 人材紹介・スクール事業",
   description:
-    "いすの木惣菜館は、宜野湾市普天間に店舗を構える創業36年の地域密着型惣菜店です。法人向け販路の拡大や商品力の強化を推進し、新たな成長フェーズへと移行しています。",
+    "理学療法士・作業療法士・看護師などの医療従事者を中心とした転職支援およびキャリア支援サービスを展開しています。人材紹介に加え、スクール事業や副業支援を行い、多様な働き方を支援しています。",
 };
 
-const IMG_HERO      = "/images/business/isunoki/hero.png";
-const IMG_GALLERY_1 = "/images/business/isunoki/gallery-1.png";
-const IMG_GALLERY_2 = "/images/business/isunoki/gallery-2.png";
-const IMG_FUTURE    = "/images/business/isunoki/future.png";
+const IMG_HERO      = "/images/business/recruitment-school/hero.png";
+const IMG_GALLERY_1 = "/images/business/recruitment-school/gallery-1.png";
+const IMG_GALLERY_2 = "/images/business/recruitment-school/gallery-2.png";
 
 const features = [
   {
     num: "01",
-    title: "地域密着による安定した顧客基盤",
-    body: "長年にわたり地域住民に利用されてきた実績があり、日常的な需要を安定的に確保。リピート率の高いビジネスモデルを構築しています。",
+    title: "医療職に特化した専門性",
+    body: "理学療法士・作業療法士・看護師など、専門職ごとの特性やキャリアパスを理解した上でのマッチングを実施。現場理解に基づいた提案力を強みとしています。",
   },
   {
     num: "02",
-    title: "幅広い商品ラインナップ",
-    body: "弁当・惣菜・軽食など、多様なニーズに対応した商品構成により、老若男女問わず利用しやすい店舗設計となっています。",
+    title: "SNSを活用した独自の集客基盤",
+    body: "SNSを活用した情報発信により、従来の求人媒体に依存しない集客を実現。潜在層へのアプローチも可能とし、質の高い求職者の獲得につなげています。",
   },
   {
     num: "03",
-    title: "法人向け販売の強化",
-    body: "学校・行政機関・宿泊施設などへの納品を拡大し、まとまった受注を獲得。個人向けと法人向けの両軸で売上の安定性と成長性を両立しています。",
+    title: "スクール・副業支援によるキャリア拡張",
+    body: "SNS運用、マーケティング、デザインなどのスキル習得を支援するスクール事業を展開。医療従事者が本業に加えて収入源を持つための副業支援を行い、キャリアの多様化を実現しています。",
   },
   {
     num: "04",
-    title: "効率的な製造体制",
-    body: "日々の大量調理に対応したオペレーションを構築し、品質を保ちながら安定供給を実現。ピークタイムにも対応可能な体制を整えています。",
+    title: "キャリア支援型のサービス設計",
+    body: "転職だけでなく、将来設計や働き方の相談まで対応。個々の価値観に合わせたキャリア形成をサポートしています。",
   },
   {
     num: "05",
-    title: "グループシナジーの活用",
-    body: "GO-TAsグループ内の仕入れや商品開発と連携し、原価の最適化と商品力の向上を推進。他事業との連動により、全体最適を図っています。",
+    title: "沖縄県内外の医療機関ネットワーク",
+    body: "県内外の医療機関と連携し、多様な選択肢を提供。地域を超えたマッチングを実現しています。",
+  },
+  {
+    num: "06",
+    title: "高いマッチング精度",
+    body: "求職者の希望条件だけでなく、職場環境や組織文化との適合性を重視した紹介を行い、定着率の高い採用支援を実現しています。",
   },
 ];
 
-export default function IsunokiPage() {
+export default function RecruitmentSchoolPage() {
   return (
     <>
       {/* ── RED HERO SECTION ─────────────────────────────────── */}
@@ -62,7 +66,7 @@ export default function IsunokiPage() {
             <div className="absolute inset-0 overflow-hidden rounded-[20px]">
               <Image
                 src={IMG_HERO}
-                alt="いすの木惣菜館"
+                alt="医療人材紹介・キャリア支援"
                 fill
                 className="object-cover"
                 priority
@@ -77,45 +81,32 @@ export default function IsunokiPage() {
 
           {/* Left: Title block */}
           <div className="flex w-full shrink-0 flex-col gap-2.5 lg:w-[338px]">
-            <h1 className="text-[32px] font-bold leading-tight text-white md:text-[clamp(36px,4.44vw,64px)]">
-              いすの木惣菜館
+            <h1 className="text-[28px] font-bold leading-tight text-white md:text-[clamp(30px,3.4vw,48px)]">
+              医療人材紹介・キャリア支援
             </h1>
             <div className="flex items-center gap-2">
               <span className="size-3 shrink-0 rounded-full bg-[#D9D9D9]" aria-hidden="true" />
-              <span className="text-[14px] font-normal text-white">惣菜・弁当事業</span>
+              <span className="text-[14px] font-normal text-white">人材紹介・スクール事業</span>
             </div>
           </div>
 
           {/* Right: Description + CTA */}
           <div className="flex flex-col gap-10 lg:ml-auto lg:max-w-[640px]">
             <div className="text-[14px] font-bold leading-[2] text-white text-justify md:text-[16px] md:font-medium md:text-left">
-              <p>いすの木惣菜館は、宜野湾市普天間に店舗を構える創業36年の地域密着型惣菜店です。長年にわたり地元住民に親しまれ、日常使いの弁当・惣菜を提供する生活インフラとしての役割を担ってきました。</p>
-              <p>GO-TAsによる事業承継後は、これまでの地域密着型の強みを活かしながら、法人向け販路の拡大や商品力の強化を推進。従来の個人向け販売に加え、学校・市役所・ホテルなどへの納品体制を整備し、新たな成長フェーズへと移行しています。</p>
+              <p>本事業では、理学療法士・作業療法士・看護師などの医療従事者を中心とした転職支援およびキャリア支援サービスを展開しています。人材紹介に加え、スクール事業や副業支援を行うことで、医療従事者の多様な働き方を支援しています。</p>
+              <p>単なる転職支援にとどまらず、「キャリアの選択肢を広げること」を目的とした包括的なサービスを提供しています。</p>
             </div>
 
-            {/* Social + shop links */}
-            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-              {/* Left: social icons */}
-              <div className="flex items-start gap-5">
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Google マップ">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/icons/google-maps.svg" alt="" width={40} height={40} />
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/icons/instagram.svg" alt="" width={40} height={40} />
-                </a>
-              </div>
-
-              {/* Right: shop link */}
+            {/* Shop link */}
+            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-end">
               <Link
-                href="https://okinawa-bentou-isunoki.com/"
+                href="https://www.gotas-work.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3.5 text-[14px] font-bold text-white transition hover:opacity-80 md:text-[16px] md:font-medium"
               >
                 <IconButton tone="green" size="md" icon="external" />
-                いすの木惣菜館
+                医療人材紹介・キャリア支援
               </Link>
             </div>
           </div>
@@ -132,7 +123,7 @@ export default function IsunokiPage() {
               <div className="relative h-[188px] md:h-full">
                 <Image
                   src={IMG_GALLERY_1}
-                  alt="いすの木惣菜館 01"
+                  alt="医療人材紹介・キャリア支援 01"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 640px"
@@ -141,7 +132,7 @@ export default function IsunokiPage() {
               <div className="relative h-[188px] md:h-full">
                 <Image
                   src={IMG_GALLERY_2}
-                  alt="いすの木惣菜館 02"
+                  alt="医療人材紹介・キャリア支援 02"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 640px"
@@ -181,17 +172,8 @@ export default function IsunokiPage() {
               </div>
               <div className="flex flex-1 flex-col gap-[60px]">
                 <div className="text-[14px] font-bold leading-[2] text-black text-justify md:text-[16px] md:text-left">
-                  <p>今後は、法人向け販売のさらなる拡大に加え、配達体制の強化や商品ブランドの再設計を進め、より広いエリアへの展開を目指します。また、地域に根ざした店舗としての価値を維持しながら、収益性と再現性の高いモデルへの進化を図っていきます。</p>
-                  <p>いすの木惣菜館は「地域密着 × 安定需要 × 成長余地」を兼ね備えた事業として、グループの基盤を支える重要なポジションを担っています。</p>
-                </div>
-                <div className="relative h-[188px] overflow-hidden rounded-[8px] md:h-[562px] md:rounded-[20px]">
-                  <Image
-                    src={IMG_FUTURE}
-                    alt="いすの木惣菜館 今後の展望"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 1000px"
-                  />
+                  <p>今後は、スクール事業の拡充やオンライン化の推進により、より多くの医療従事者への支援を拡大していきます。また、人材紹介と教育を組み合わせた独自モデルを強化し、業界内でのポジション確立を目指します。</p>
+                  <p>本事業は「専門性 × 教育 × 集客力」を兼ね備えた領域として、グループの成長を牽引する人材・教育事業です。</p>
                 </div>
               </div>
             </div>
