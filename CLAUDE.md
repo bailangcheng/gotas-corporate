@@ -78,6 +78,25 @@
 
 ---
 
+## 画像・静的アセット（`public/`）
+
+**種類でフォルダを分ける。混同しない（Figma書き出しもこのルールに従う）。**
+
+| 種類                         | 置き場所                  | 例                              |
+|------------------------------|---------------------------|---------------------------------|
+| 写真・ラスター画像 (.png/.jpg) | `public/images/<section>/` | `/images/members/members-01.png` |
+| 装飾SVG・背景・ブロブ・ベクター | `public/svg/<section>/`    | `/svg/members/bg-1.svg`          |
+| アイコン                      | `public/icons/`           | `/icons/arrow.svg`               |
+| フォント                      | `public/fonts/`           | `FuturaCyrillicBold.ttf`         |
+
+- `<section>` はルートの slug に対応（`members` / `recruit` / `magazine` / `company/...` / `business/<slug>` など）。
+- 事業ページ画像は `images/business/<slug>/{hero,gallery-1,gallery-2,future}.png`。
+- **連番命名**: 装飾背景svgは `bg-1.svg` / `bg-2.svg`（非ゼロ埋め、全セクション統一）。写真の連番は新規追加時ゼロ埋め2桁推奨（`members-01.png` `history-01.png`）だが既存は混在（`gallery-1.png` `tv-1.png` 等）。
+- **参照時は必ず実ファイル名を確認**（`-1` か `-01` か）。過去に `/svg/magazine/bg-01.svg` を参照し実体 `bg-1.svg` と食い違い背景が消えた事故あり。
+- **写真は表示サイズちょうどで書き出す**（例 `560×800`, `280×280`）。Next/Image は元解像度以上に拡大せずボケるため。Retina重視なら2倍で書き出す。
+
+---
+
 ## ルーティング
 
 | パス          | ファイル                             | 備考                        |

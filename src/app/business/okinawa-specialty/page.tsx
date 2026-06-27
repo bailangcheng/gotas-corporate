@@ -4,45 +4,44 @@ import { IconButton } from "@/components/ui/IconButton";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "いすの木惣菜館 | 惣菜・弁当事業",
+  title: "有限会社すばる商事 | 沖縄特産品卸売事業",
   description:
-    "いすの木惣菜館は、宜野湾市普天間に店舗を構える創業36年の地域密着型惣菜店です。法人向け販路の拡大や商品力の強化を推進し、新たな成長フェーズへと移行しています。",
+    "有限会社すばる商事は、沖縄特産品の卸売事業を展開する企業です。もずくやシークヮーサーをはじめとした沖縄を代表する食品を取り扱い、地域の魅力を全国へ発信する役割を担っています。",
 };
 
-const IMG_HERO      = "/images/business/isunoki/hero.png";
-const IMG_GALLERY_1 = "/images/business/isunoki/gallery-1.png";
-const IMG_GALLERY_2 = "/images/business/isunoki/gallery-2.png";
-const IMG_FUTURE    = "/images/business/isunoki/future.png";
+const IMG_HERO      = "/images/business/okinawa-specialty/hero.png";
+const IMG_GALLERY_1 = "/images/business/okinawa-specialty/gallery-1.png";
+const IMG_GALLERY_2 = "/images/business/okinawa-specialty/gallery-2.png";
 
 const features = [
   {
     num: "01",
-    title: "地域密着による安定した顧客基盤",
-    body: "長年にわたり地域住民に利用されてきた実績があり、日常的な需要を安定的に確保。リピート率の高いビジネスモデルを構築しています。",
+    title: "沖縄特産品に特化した商品力",
+    body: "もずくやシークヮーサーなど、沖縄を代表する食材を中心に取り扱い、地域性の高いラインナップを展開。観光需要および県外需要の双方に対応可能です。",
   },
   {
     num: "02",
-    title: "幅広い商品ラインナップ",
-    body: "弁当・惣菜・軽食など、多様なニーズに対応した商品構成により、老若男女問わず利用しやすい店舗設計となっています。",
+    title: "卸売ネットワークの構築",
+    body: "既存の取引先との関係性を活かし、安定した流通基盤を確保。飲食店・小売店・事業者向けに幅広い供給体制を整えています。",
   },
   {
     num: "03",
-    title: "法人向け販売の強化",
-    body: "学校・行政機関・宿泊施設などへの納品を拡大し、まとまった受注を獲得。個人向けと法人向けの両軸で売上の安定性と成長性を両立しています。",
+    title: "商品開発・ブランド化の推進",
+    body: "原材料の供給にとどまらず、加工品の開発やパッケージデザインの強化を行い、ブランド価値の向上を図っています。土産需要やギフト需要への対応も進めています。",
   },
   {
     num: "04",
-    title: "効率的な製造体制",
-    body: "日々の大量調理に対応したオペレーションを構築し、品質を保ちながら安定供給を実現。ピークタイムにも対応可能な体制を整えています。",
+    title: "グループシナジーの活用",
+    body: "GO-TAsグループの飲食事業やEC展開と連携し、販路の拡大と商品価値の最大化を実現。仕入れから販売まで一貫したビジネスモデルを構築しています。",
   },
   {
     num: "05",
-    title: "グループシナジーの活用",
-    body: "GO-TAsグループ内の仕入れや商品開発と連携し、原価の最適化と商品力の向上を推進。他事業との連動により、全体最適を図っています。",
+    title: "全国展開を見据えた事業基盤",
+    body: "沖縄発のブランドとして、県外市場への展開を強化。今後はEC販売や法人取引の拡大により、全国規模での流通網構築を目指しています。",
   },
 ];
 
-export default function IsunokiPage() {
+export default function OkinawaSpecialtyPage() {
   return (
     <>
       {/* ── RED HERO SECTION ─────────────────────────────────── */}
@@ -62,7 +61,7 @@ export default function IsunokiPage() {
             <div className="absolute inset-0 overflow-hidden rounded-[20px]">
               <Image
                 src={IMG_HERO}
-                alt="いすの木惣菜館"
+                alt="有限会社すばる商事"
                 fill
                 className="object-cover"
                 priority
@@ -78,44 +77,31 @@ export default function IsunokiPage() {
           {/* Left: Title block */}
           <div className="flex w-full shrink-0 flex-col gap-2.5 lg:w-[338px]">
             <h1 className="text-[32px] font-bold leading-tight text-white md:text-[clamp(36px,4.44vw,64px)]">
-              いすの木惣菜館
+              有限会社すばる商事
             </h1>
             <div className="flex items-center gap-2">
               <span className="size-3 shrink-0 rounded-full bg-[#D9D9D9]" aria-hidden="true" />
-              <span className="text-[14px] font-normal text-white">惣菜・弁当事業</span>
+              <span className="text-[14px] font-normal text-white">沖縄特産品卸売事業</span>
             </div>
           </div>
 
           {/* Right: Description + CTA */}
           <div className="flex flex-col gap-10 lg:ml-auto lg:max-w-[640px]">
             <div className="text-[14px] font-bold leading-[2] text-white text-justify md:text-[16px] md:font-medium md:text-left">
-              <p>いすの木惣菜館は、宜野湾市普天間に店舗を構える創業36年の地域密着型惣菜店です。長年にわたり地元住民に親しまれ、日常使いの弁当・惣菜を提供する生活インフラとしての役割を担ってきました。</p>
-              <p>GO-TAsによる事業承継後は、これまでの地域密着型の強みを活かしながら、法人向け販路の拡大や商品力の強化を推進。従来の個人向け販売に加え、学校・市役所・ホテルなどへの納品体制を整備し、新たな成長フェーズへと移行しています。</p>
+              <p>有限会社すばる商事は、沖縄特産品の卸売事業を展開する企業です。もずくやシークヮーサーをはじめとした沖縄を代表する食品を取り扱い、地域の魅力を全国へ発信する役割を担っています。</p>
+              <p>GO-TAsグループとしての連携を強化することで、従来の卸売事業に加え、商品開発やブランド化を推進。単なる流通にとどまらず、付加価値を創出する事業へと進化しています。</p>
             </div>
 
-            {/* Social + shop links */}
-            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-              {/* Left: social icons */}
-              <div className="flex items-start gap-5">
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Google マップ">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/icons/google-maps.svg" alt="" width={40} height={40} />
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/icons/instagram.svg" alt="" width={40} height={40} />
-                </a>
-              </div>
-
-              {/* Right: shop link */}
+            {/* Shop link */}
+            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-end">
               <Link
-                href="https://okinawa-bentou-isunoki.com/"
+                href="https://www.subaru-shoji.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3.5 text-[14px] font-bold text-white transition hover:opacity-80 md:text-[16px] md:font-medium"
               >
                 <IconButton tone="green" size="md" icon="external" />
-                いすの木惣菜館
+                有限会社すばる商事
               </Link>
             </div>
           </div>
@@ -132,7 +118,7 @@ export default function IsunokiPage() {
               <div className="relative h-[188px] md:h-full">
                 <Image
                   src={IMG_GALLERY_1}
-                  alt="いすの木惣菜館 01"
+                  alt="有限会社すばる商事 01"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 640px"
@@ -141,7 +127,7 @@ export default function IsunokiPage() {
               <div className="relative h-[188px] md:h-full">
                 <Image
                   src={IMG_GALLERY_2}
-                  alt="いすの木惣菜館 02"
+                  alt="有限会社すばる商事 02"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 640px"
@@ -181,17 +167,8 @@ export default function IsunokiPage() {
               </div>
               <div className="flex flex-1 flex-col gap-[60px]">
                 <div className="text-[14px] font-bold leading-[2] text-black text-justify md:text-[16px] md:text-left">
-                  <p>今後は、法人向け販売のさらなる拡大に加え、配達体制の強化や商品ブランドの再設計を進め、より広いエリアへの展開を目指します。また、地域に根ざした店舗としての価値を維持しながら、収益性と再現性の高いモデルへの進化を図っていきます。</p>
-                  <p>いすの木惣菜館は「地域密着 × 安定需要 × 成長余地」を兼ね備えた事業として、グループの基盤を支える重要なポジションを担っています。</p>
-                </div>
-                <div className="relative h-[188px] overflow-hidden rounded-[8px] md:h-[562px] md:rounded-[20px]">
-                  <Image
-                    src={IMG_FUTURE}
-                    alt="いすの木惣菜館 今後の展望"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 1000px"
-                  />
+                  <p>今後は、PB商品の開発強化やOEM展開、海外市場への進出も視野に入れ、沖縄の魅力をより広く発信していきます。地域資源を活かした高付加価値ビジネスとして、持続的な成長を目指します。</p>
+                  <p>すばる商事は「地域性 × 商品開発 × 拡張性」を兼ね備えた事業として、グループの成長を支える重要な役割を担っています。</p>
                 </div>
               </div>
             </div>

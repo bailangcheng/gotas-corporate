@@ -95,9 +95,6 @@ export default function HistoryPage() {
                   <div key={entry.year}>
                     {entry.events.map((event, eventIdx) => (
                       <div key={eventIdx}>
-                        {eventIdx > 0 && (
-                          <div className="border-t border-line-subtle" />
-                        )}
                         <div className="flex flex-col gap-2 px-5 py-6 sm:flex-row sm:items-start sm:gap-10">
                           <span
                             className={`font-display text-[36px] font-bold leading-tight text-accent sm:w-50 sm:shrink-0${
@@ -110,8 +107,13 @@ export default function HistoryPage() {
                             {event}
                           </p>
                         </div>
+                        {/* 同一年内のイベント間は短い区切り線（文字の頭まで右にインデント） */}
+                        {eventIdx < entry.events.length - 1 && (
+                          <div className="border-t border-line-subtle sm:ml-65" />
+                        )}
                       </div>
                     ))}
+                    {/* 年ごとの境界は全幅の線 */}
                     <div className="border-t border-line-subtle" />
                   </div>
                 ))}

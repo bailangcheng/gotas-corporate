@@ -42,7 +42,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/svg/magazine/bg-01.svg"
+          src="/svg/magazine/bg-1.svg"
           alt=""
           className="absolute top-0 left-0 w-full h-auto"
         />

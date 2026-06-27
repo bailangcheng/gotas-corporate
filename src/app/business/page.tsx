@@ -123,10 +123,10 @@ function ServiceCard({ service }: { service: Service }) {
   return (
     <article
       id={`service-${service.id}`}
-      className="flex scroll-mt-24 flex-col gap-12 rounded-[20px] bg-white p-[60px] lg:flex-row lg:items-center"
+      className="flex scroll-mt-24 flex-col gap-12 rounded-[20px] bg-white p-[60px] xl:flex-row xl:items-center"
     >
       {/* Text */}
-      <div className="flex flex-1 flex-col justify-between gap-10 lg:min-h-[280px]">
+      <div className="flex flex-1 flex-col justify-between gap-10 xl:min-h-[280px]">
         <div className="flex flex-col gap-10">
           <h2 className="text-[40px] font-bold text-black leading-tight">
             {service.title}
@@ -161,7 +161,7 @@ function ServiceCard({ service }: { service: Service }) {
 
       {/* Photo */}
       <div
-        className="relative h-[300px] w-full shrink-0 overflow-hidden rounded-[14px] border border-[#d9d9d9] lg:w-[450px]"
+        className="relative h-[300px] w-full shrink-0 overflow-hidden rounded-[14px] border border-[#d9d9d9] xl:w-[450px]"
         style={{ backgroundColor: service.imageBg }}
       >
         <Image
@@ -169,7 +169,7 @@ function ServiceCard({ service }: { service: Service }) {
           alt={service.title}
           fill
           className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 450px"
+          sizes="(max-width: 1280px) 100vw, 450px"
         />
       </div>
     </article>
@@ -179,6 +179,11 @@ function ServiceCard({ service }: { service: Service }) {
 export default function BusinessPage() {
   return (
     <>
+      {/* Sticky-nav track — spans the hero + services section so the category
+          nav (rendered as an overlay at the bottom of this block) can stay
+          pinned to the left across the whole services scroll. */}
+      <div className="relative">
+
       {/* ── RED HERO SECTION ─────────────────────────────────── */}
       {/* No overflow-hidden here — watermark intentionally bleeds below into blue section */}
       <section className="relative min-h-[900px] bg-[#ff3f31]">
@@ -210,9 +215,8 @@ export default function BusinessPage() {
         {/* Two-column: left nav + right body text */}
         <div className="relative mx-auto mt-[60px] flex max-w-[1440px] items-start gap-16 px-10 pb-16">
 
-          <CategoryNav label="事業カテゴリナビゲーション" items={serviceNavItems} itemClassName="font-medium" />
-
-          {/* Body text — ml-auto pushes it to the right half (Figma: left: calc(50%+40px)) */}
+          {/* Body text — ml-auto pushes it to the right half (Figma: left: calc(50%+40px)).
+              The category nav now lives in the sticky overlay below so it can stay pinned. */}
           <div className="ml-auto max-w-[640px] text-[18px] font-medium leading-[2] text-white">
             <p>
               株式会社GO-TAsは、沖縄県に残る価値ある事業を次世代へ繋ぎ、新しい形で成長させることを目的とした企業です。
@@ -244,8 +248,8 @@ export default function BusinessPage() {
           <img src="/svg/business/bg-1.svg" alt="" className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-auto" />
         </div>
 
-        {/* Service cards */}
-        <div className="relative mx-auto max-w-[1440px] px-[clamp(20px,6.94vw,100px)] py-[138px]">
+        {/* Service cards — lg:pl reserves the left gutter for the sticky nav so cards never sit under it */}
+        <div className="relative mx-auto max-w-[1440px] px-[clamp(20px,6.94vw,100px)] py-[138px] lg:pl-[260px]">
           <div className="ml-auto flex max-w-[1080px] flex-col gap-[60px]">
             {services.map((service) => (
               <div key={service.id} className="flex flex-col gap-6">
@@ -259,6 +263,24 @@ export default function BusinessPage() {
         </div>
       </section>
       </div>
+
+      {/* ── STICKY CATEGORY NAV (PC only) ──────────────────────────
+          Pinned to the left gutter; stays in view across the whole
+          services scroll. SP excluded via `hidden lg:block`. The
+          wrapper is click-through (pointer-events-none); only the nav
+          itself re-enables pointer events. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[284px] z-30 hidden lg:block">
+        <div className="mx-auto h-full max-w-[1440px] px-10">
+          <CategoryNav
+            label="事業カテゴリナビゲーション"
+            items={serviceNavItems}
+            itemClassName="font-medium"
+            className="pointer-events-auto sticky top-[120px]"
+          />
+        </div>
+      </div>
+
+      </div>{/* end sticky-nav track */}
     </>
   );
 }
